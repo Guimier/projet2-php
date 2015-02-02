@@ -1,7 +1,7 @@
 <?php
 
 /** A call as described in the radius log. */
-class RadiusCall {
+abstract class RadiusCall {
 
 	/** Caller identifiant.
 	 * @type string
@@ -18,22 +18,22 @@ class RadiusCall {
 	 */
 	private $start;
 
-	/** Timestamp of the end date of the call.
+	/** Duration of the call.
 	 * @type integer
 	 */
-	private $end;
+	private $duration;
 
 	/** Constructor.
 	 * @param string $caller Identifer of the caller.
 	 * @param string $callee Identifer of the callee.
 	 * @param integer $start Timestamp of the start date of the call.
-	 * @param integer $end Timestamp of the end date of the call.
+	 * @param integer $duration Duration of the call.
 	 */
-	public function __construct( $caller, $callee, $start, $end ) {
+	protected function __construct( $caller, $callee, $start, $duration ) {
 		$this->caller = $caller;
 		$this->callee = $callee;
 		$this->start = $start;
-		$this->end = $end;
+		$this->duration = $duration;
 	}
 	
 	/** Get the domain part of an identifier.
@@ -77,7 +77,7 @@ class RadiusCall {
 	
 	/** Get the duration in seconds. */
 	public function getDuration() {
-		return $this->end - $this->start;
+		return $this->duration;
 	}
 
 }

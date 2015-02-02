@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/RadiusEffectiveCall.php';
+require_once __DIR__ . '/RadiusAvortedCall.php';
+
 /** Radius log unserializer. */
 class RadiusLog {
 
@@ -45,7 +48,7 @@ class RadiusLog {
 					$itemRepr = array();
 	
 					for ( $i = 1; $i < count( $lines ); ++$i ) {
-						preg_match( '#^\t([^=]+) = "?(.+)"?$#', $lines[$i], $m );
+						preg_match( '#^\t([^=]+) = "?([^"]+)"?$#', $lines[$i], $m );
 						$itemRepr[ $m[1] ] = $m[2]; 
 					}
 
@@ -75,6 +78,14 @@ class RadiusLog {
 		return $res;
 	}
 
+	private function removeSIPPrefix( $userId ) {
+		if ( substr( $userId, 0, 4 ) === 'sip:' ) {
+			$userId = substr( $userId, 4 );
+		}
+		
+		return $userId;
+	}
+
 	/** Get the list of calls for a month of activity.
 	 * @param integer $year Year.
 	 * @param integer $month Month.
@@ -82,7 +93,6 @@ class RadiusLog {
 	public function getMonthCalls( $year, $month ) {
 		$monthLog = $this->unserializeMonth( $year, $month );
 		$started = array();
-		$calls = array();
 		
 		foreach ( $monthLog as $logItem ) {
 			$id = $logItem['Acct-Unique-Session-Id'];
@@ -90,8 +100,8 @@ class RadiusLog {
 			switch ( $logItem['Acct-Status-Type'] ) {
 				case 'Start':
 					$started[$id] = array(
-						'caller' => $logItem['Calling-Station-Id'],
-						'callee' => $logItem['Called-Station-Id'],
+						'caller' => $this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
+						'callee' => $this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
 						'start' => (int) $logItem['Timestamp']
 					);
 					break;
@@ -101,7 +111,7 @@ class RadiusLog {
 						throw new Exception( 'Unstarted call #' . $id );
 					}
 					
-					$calls[] = new RadiusCall(
+					$calls[] = new RadiusEffectiveCall(
 						$started[$id]['caller'],
 						$started[$id]['callee'],
 						$started[$id]['start'],
@@ -112,7 +122,11 @@ class RadiusLog {
 					break;
 				
 				case 'Failed':
-					echo 'Skipped avorted call #' . $logItem['Acct-Unique-Session-Id'] . "\n";
+					$calls[] = new RadiusAvortedCall(
+						$this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
+						$this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
+						(int) $logItem['Timestamp']
+					);
 					break;
 				
 				default:
@@ -120,6 +134,10 @@ class RadiusLog {
 						'Unknown status “' . $logItem['Acct-Status-Type'] . '”'
 					);
 			}
+		}
+		
+		if ( count( $started ) > 0 ) {
+			throw new Exception( 'Unstarted call(s) #' . implode( ', #', array_keys( $started ) ) );
 		}
 		
 		return $calls;
