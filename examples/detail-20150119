@@ -1,0 +1,204 @@
+Mon Jan 19 10:52:26 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:52:26 CET"
+	Sip-From-Tag = "1514023998"
+	Sip-To-Tag = "DbEJdfR"
+	Acct-Session-Id = "48771904"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "313763d445993202"
+	Timestamp = 1421661146
+
+Mon Jan 19 10:52:30 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 19 2015 10:52:30 CET"
+	Sip-From-Tag = "1514023998"
+	Sip-To-Tag = "DbEJdfR"
+	Acct-Session-Id = "48771904"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "313763d445993202"
+	Timestamp = 1421661150
+
+Mon Jan 19 10:52:38 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:52:38 CET"
+	Sip-From-Tag = "9wvEr2s7R"
+	Sip-To-Tag = "66516892"
+	Acct-Session-Id = "uB1OVYX914"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "bfe833f359a775ef"
+	Timestamp = 1421661158
+
+Mon Jan 19 10:52:43 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 19 2015 10:52:43 CET"
+	Sip-From-Tag = "9wvEr2s7R"
+	Sip-To-Tag = "66516892"
+	Acct-Session-Id = "uB1OVYX914"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "bfe833f359a775ef"
+	Timestamp = 1421661163
+
+Mon Jan 19 10:52:51 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:52:51 CET"
+	Sip-From-Tag = "1626329166"
+	Sip-To-Tag = "lTtHVEB"
+	Acct-Session-Id = "797520956"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "0421bdbfdb7d02af"
+	Timestamp = 1421661171
+
+Mon Jan 19 10:52:53 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 19 2015 10:52:53 CET"
+	Sip-From-Tag = "lTtHVEB"
+	Sip-To-Tag = "1626329166"
+	Acct-Session-Id = "797520956"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "0421bdbfdb7d02af"
+	Timestamp = 1421661173
+
+Mon Jan 19 10:53:00 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:53:00 CET"
+	Sip-From-Tag = "jqm2oJ9wP"
+	Sip-To-Tag = "1575488936"
+	Acct-Session-Id = "i-iGhYbFxn"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "c07ddccc97c95e2b"
+	Timestamp = 1421661180
+
+Mon Jan 19 10:53:02 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 19 2015 10:53:02 CET"
+	Sip-From-Tag = "1575488936"
+	Sip-To-Tag = "jqm2oJ9wP"
+	Acct-Session-Id = "i-iGhYbFxn"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "c07ddccc97c95e2b"
+	Timestamp = 1421661182
+
+Mon Jan 19 10:53:11 2015
+	Acct-Status-Type = Failed
+	Service-Type = SIP
+	Sip-Response-Code = 603
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:53:11 CET"
+	Sip-From-Tag = "965289973"
+	Sip-To-Tag = "JMCynbJ"
+	Acct-Session-Id = "1226681104"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "c91478224133de60"
+	Timestamp = 1421661191
+
+Mon Jan 19 10:53:19 2015
+	Acct-Status-Type = Failed
+	Service-Type = SIP
+	Sip-Response-Code = 603
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:53:19 CET"
+	Sip-From-Tag = "0YKKr0nZA"
+	Sip-To-Tag = "2020074467"
+	Acct-Session-Id = "YNbr03e5bU"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "c377a4eeb4c9a42a"
+	Timestamp = 1421661199
+
+Mon Jan 19 10:53:43 2015
+	Acct-Status-Type = Failed
+	Service-Type = SIP
+	Sip-Response-Code = 487
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:53:43 CET"
+	Sip-From-Tag = "877884912"
+	Sip-To-Tag = "oUlDtoj"
+	Acct-Session-Id = "246779662"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "a24862d9840b6652"
+	Timestamp = 1421661223
+
+Mon Jan 19 10:54:02 2015
+	Acct-Status-Type = Failed
+	Service-Type = SIP
+	Sip-Response-Code = 487
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 19 2015 10:54:02 CET"
+	Sip-From-Tag = "3IzYfdCIN"
+	Sip-To-Tag = "899850879"
+	Acct-Session-Id = "BYBLI88jbr"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "56a881ad0a0b5a21"
+	Timestamp = 1421661242
+

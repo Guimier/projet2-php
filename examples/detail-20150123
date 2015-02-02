@@ -1,0 +1,204 @@
+Fri Jan 23 16:34:45 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:34:45 CET"
+	Sip-From-Tag = "h9dll~Vm3"
+	Sip-To-Tag = "205059308"
+	Acct-Session-Id = "J8Vahbnui3"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "2202779a3758b08a"
+	Timestamp = 1422027285
+
+Fri Jan 23 16:35:23 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:35:23 CET"
+	Sip-From-Tag = "205059308"
+	Sip-To-Tag = "h9dll~Vm3"
+	Acct-Session-Id = "J8Vahbnui3"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "2202779a3758b08a"
+	Timestamp = 1422027323
+
+Fri Jan 23 16:37:58 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:37:58 CET"
+	Sip-From-Tag = "1433119450"
+	Sip-To-Tag = "RXUOzH1"
+	Acct-Session-Id = "820676894"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "06fab9c94a0e16f5"
+	Timestamp = 1422027478
+
+Fri Jan 23 16:38:30 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:38:30 CET"
+	Sip-From-Tag = "1433119450"
+	Sip-To-Tag = "RXUOzH1"
+	Acct-Session-Id = "820676894"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "06fab9c94a0e16f5"
+	Timestamp = 1422027510
+
+Fri Jan 23 16:39:03 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:39:03 CET"
+	Sip-From-Tag = "papTTqXYw"
+	Sip-To-Tag = "2040987018"
+	Acct-Session-Id = "AuyPJXjVaU"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "95680b42139e9efe"
+	Timestamp = 1422027543
+
+Fri Jan 23 16:39:05 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:39:05 CET"
+	Sip-From-Tag = "2040987018"
+	Sip-To-Tag = "papTTqXYw"
+	Acct-Session-Id = "AuyPJXjVaU"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "95680b42139e9efe"
+	Timestamp = 1422027545
+
+Fri Jan 23 16:41:37 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:41:37 CET"
+	Sip-From-Tag = "ae195b27"
+	Sip-To-Tag = "894628641"
+	Acct-Session-Id = "OTRjYmQ4OGM2ZjgyOWIzZjA3ZDA5YmU2MDdhOTU5N2Y"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "1ca0aa65fea69639"
+	Timestamp = 1422027697
+
+Fri Jan 23 16:41:43 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:41:43 CET"
+	Sip-From-Tag = "894628641"
+	Sip-To-Tag = "ae195b27"
+	Acct-Session-Id = "OTRjYmQ4OGM2ZjgyOWIzZjA3ZDA5YmU2MDdhOTU5N2Y"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "1ca0aa65fea69639"
+	Timestamp = 1422027703
+
+Fri Jan 23 16:54:48 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:54:48 CET"
+	Sip-From-Tag = "36babb75"
+	Sip-To-Tag = "79188097"
+	Acct-Session-Id = "MGJkOTAzNmRhMmZmM2EyYzg2NTMzZDgxNTE1YTA3YWM"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "9b7293a93ace3d63"
+	Timestamp = 1422028488
+
+Fri Jan 23 16:54:58 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:54:58 CET"
+	Sip-From-Tag = "79188097"
+	Sip-To-Tag = "36babb75"
+	Acct-Session-Id = "MGJkOTAzNmRhMmZmM2EyYzg2NTMzZDgxNTE1YTA3YWM"
+	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "9b7293a93ace3d63"
+	Timestamp = 1422028498
+
+Fri Jan 23 16:55:20 2015
+	Acct-Status-Type = Start
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = Invite
+	Event-Timestamp = "Jan 23 2015 16:55:20 CET"
+	Sip-From-Tag = "c73ea328"
+	Sip-To-Tag = "1461194951"
+	Acct-Session-Id = "NmE1YTAzMDgyODVlNDA2OTgyNTBkNzVlMjJlZjU0ZDE"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "2f9fb490be04ac9c"
+	Timestamp = 1422028520
+
+Fri Jan 23 16:55:46 2015
+	Acct-Status-Type = Stop
+	Service-Type = SIP
+	Sip-Response-Code = 200
+	Sip-Method = 8
+	Event-Timestamp = "Jan 23 2015 16:55:46 CET"
+	Sip-From-Tag = "c73ea328"
+	Sip-To-Tag = "1461194951"
+	Acct-Session-Id = "NmE1YTAzMDgyODVlNDA2OTgyNTBkNzVlMjJlZjU0ZDE"
+	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	NAS-Port = 5060
+	Acct-Delay-Time = 0
+	NAS-IP-Address = 127.0.0.1
+	Acct-Unique-Session-Id = "2f9fb490be04ac9c"
+	Timestamp = 1422028546
+
