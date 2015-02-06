@@ -8,7 +8,7 @@ class RadiusAvortedCall extends RadiusCall {
 	/** Constructor.
 	 * @param string $caller Identifer of the caller.
 	 * @param string $callee Identifer of the callee.
-	 * @param integer $start Timestamp of the date of the call.
+	 * @param integer $date Timestamp of the date of the call.
 	 */
 	public function __construct( $caller, $callee, $date ) {
 		parent::__construct( $caller, $callee, $date, 0 );

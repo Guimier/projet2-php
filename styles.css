@@ -1,0 +1,72 @@
+table {
+	border-collapse: collapse;
+}
+
+table thead tr:before {
+	content: '';
+}
+
+table td,
+table th,
+tr:before {
+	border: 1px solid #aaa;
+	padding: 0.2em 0.4em;
+	display: table-cell;
+}
+
+table tr:nth-child(2n+1) {
+	background: #f8f8f8;
+}
+
+table tr:nth-child(2n) {
+	background: #e0e0e0;
+}
+
+table th {
+	background: #d0d0d0;
+}
+
+tr.avorted:before {
+	content: 'Avorté';
+	color: #cc0000;
+}
+
+tr.caller:before {
+	content: 'Appellant';
+	color: #008800;
+}
+
+tr.callee:before {
+	content: 'Appellé';
+	color: #555;
+}
+
+/* Forms */
+.form {
+	max-width: 20em;
+	border: 1px solid #aaa;
+	padding: 0.5em;
+}
+.form h2 {
+	font-size: 1em;
+	text-align: center;
+	padding: 0 0 0.5em;
+	margin: 0;
+	border-bottom: 1px solid #aaa;
+}
+
+form label,
+form input,
+form select {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	text-align: center;
+	margin: 1em 0 0;
+}
+
+form label + input,
+form label + select {
+	margin: 0.5em 0 0;
+}
+

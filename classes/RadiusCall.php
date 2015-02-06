@@ -39,35 +39,33 @@ abstract class RadiusCall {
 	/** Get the domain part of an identifier.
 	 * @param string $identifier Identifier.
 	 */
-	private function getDomain( $identifier ) {
+	public static function getDomain( $identifier ) {
 		return explode( '@', $identifier )[1];
-	}
-
-	/** Get the caller domain. */
-	public function getCallerDomain() {
-		return $this->getDomain( $this->caller );
-	}
-
-	/** Get the callee domain. */
-	public function getCalleeDomain() {
-		return $this->getDomain( $this->callee );
 	}
 	
 	/** Get the name part of an identifier.
 	 * @param string $identifier Identifier.
 	 */
-	private function getName( $identifier ) {
+	public static function getName( $identifier ) {
 		return explode( '@', $identifier )[0];
 	}
-	
-	/** Get the caller name. */
-	public function getCallerName() {
-		return $this->getName( $this->caller );
+
+	/** Get the caller. */
+	public function getCaller() {
+		return $this->caller;
+	}
+
+	/** Get the callee. */
+	public function getCallee() {
+		return $this->callee;
 	}
 	
-	/** Get the callee name. */
-	public function getCalleeName() {
-		return $this->getName( $this->callee );
+	public function callerIs( $name, $domain ) {
+		return $this->caller === "$name@$domain";
+	}
+	
+	public function calleeIs( $name, $domain ) {
+		return $this->callee === "$name@$domain";
 	}
 	
 	/** Get the start time (UNIX timestamp). */

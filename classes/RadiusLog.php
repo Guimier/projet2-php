@@ -93,6 +93,7 @@ class RadiusLog {
 	public function getMonthCalls( $year, $month ) {
 		$monthLog = $this->unserializeMonth( $year, $month );
 		$started = array();
+		$calls = array();
 		
 		foreach ( $monthLog as $logItem ) {
 			$id = $logItem['Acct-Unique-Session-Id'];
@@ -141,6 +142,19 @@ class RadiusLog {
 		}
 		
 		return $calls;
+	}
+	
+	/** Filter log by device.
+	 * @param array(RadiusCall) Log as returned by #getMonthCalls.
+	 * @param array(string) $devices Devices to select.
+	 */
+	public static function filter( $log, $devices ) {
+		return array_filter(
+			$log,
+			function ( $call ) use ( $devices ) {
+				return in_array( $call->getCaller(), $devices ) || in_array( $call->getCallee(), $devices );
+			}
+		);
 	}
 
 }

@@ -1,0 +1,6 @@
+{
+	"locale": "fr",
+	"logsdir": "/var/log/freeradius/radacct/127.0.0.1",
+	"domain": "votre.domaine.ici",
+	"dateformat": "Le %e à %k h %M"
+}

@@ -1,35 +1,35 @@
 # Configuration for Doxygen documentation.
 DOXYFILE_ENCODING = UTF-8
-PROJECT_NAME = KamailioLog
-PROJECT_NUMBER = alpha
-OUTPUT_DIRECTORY = doc
-CREATE_SUBDIRS = NO
-OUTPUT_LANGUAGE = English
-TAB_SIZE = 4
+PROJECT_NAME      = KamailioLog
+PROJECT_NUMBER    = alpha
+OUTPUT_DIRECTORY  = doc
+CREATE_SUBDIRS    = NO
+OUTPUT_LANGUAGE   = English
+TAB_SIZE          = 4
 BRIEF_MEMBER_DESC = YES
-REPEAT_BRIEF = YES
+REPEAT_BRIEF      = YES
 JAVADOC_AUTOBRIEF = YES
 
 # Extraction
-EXTRACT_ALL = YES
-EXTRACT_PRIVATE = YES
-EXTRACT_STATIC = YES
-#EXTRACT_LOCAL_CLASSES = YES
+EXTRACT_ALL       = YES
+EXTRACT_PRIVATE   = YES
+EXTRACT_STATIC    = YES
 
 # Input
-INPUT = .
-INPUT_ENCODING = UTF-8
-FILE_PATTERNS = *.php
-RECURSIVE = YES
-EXCLUDE_PATTERNS = */doc/index.php */**/placeholders.php */**/extenders.php
+INPUT             = .
+INPUT_ENCODING    = UTF-8
+FILE_PATTERNS     = *.php
+RECURSIVE         = YES
+EXCLUDE_PATTERNS  = */doc/index.php */**/placeholders.php */**/extenders.php
+INPUT_FILTER      = devel/doxygen-filter.php
 
 # Source browsing
-SOURCE_BROWSER = YES
-VERBATIM_HEADERS = NO
+SOURCE_BROWSER    = YES
+VERBATIM_HEADERS  = NO
 
 # HTML output
-GENERATE_HTML = YES
-HTML_OUTPUT = .
+GENERATE_HTML     = YES
+HTML_OUTPUT       = .
 GENERATE_TREEVIEW = YES
 
 # LaTeX output
