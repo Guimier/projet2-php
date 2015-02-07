@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/RadiusCall.php';
-
 /** An avorted call as described in the radius log. */
 class RadiusAvortedCall extends RadiusCall {
 

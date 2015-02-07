@@ -1,8 +1,5 @@
 <?php
 
-require_once __DIR__ . '/RadiusEffectiveCall.php';
-require_once __DIR__ . '/RadiusAvortedCall.php';
-
 /** Radius log unserializer. */
 class RadiusLog {
 

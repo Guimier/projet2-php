@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/RadiusCall.php';
-
 /** An effective call as described in the radius log. */
 class RadiusEffectiveCall extends RadiusCall {
 
