@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo htmlspecialchars( $this->getTitle() ); ?></title>
+		<title><?php echo $this->escape( $this->getTitle() ); ?></title>
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>

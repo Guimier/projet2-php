@@ -57,7 +57,7 @@ abstract class RadiusCall {
 	}
 	
 	/** Get the call type in the context of a set of accounts.
-	 * @param array(Account) $accounts The context accounts.
+	 * @param array $accounts The context accounts.
 	 */
 	abstract public function getStatus( array $accounts );
 

@@ -11,8 +11,8 @@ class RadiusLog {
 	 */
 	private $logDir;
 
-	/** Constructor. 
-	 * @param string $logDir Path of the directory where the log is.
+	/** Constructor.
+	 * @param string $logDir Path of the directory where the log is.
 	 */
 	public function __construct( $logDir ) {
 		$this->logDir = $logDir;
@@ -78,6 +78,9 @@ class RadiusLog {
 		return $res;
 	}
 
+	/** Remove the SIP prefix from an account identifiant.
+	 * @param string $userId The account string.
+	 */
 	private function removeSIPPrefix( $userId ) {
 		if ( substr( $userId, 0, 4 ) === 'sip:' ) {
 			$userId = substr( $userId, 4 );
@@ -145,8 +148,8 @@ class RadiusLog {
 	}
 	
 	/** Filter log by accounts.
-	 * @param array(RadiusCall) Log as returned by #getMonthCalls.
-	 * @param array(string) $accounts Accounts to select.
+	 * @param array $log Log as returned by #getMonthCalls.
+	 * @param array $accounts Accounts to select.
 	 */
 	public static function filter( $log, $accounts ) {
 		return array_filter(

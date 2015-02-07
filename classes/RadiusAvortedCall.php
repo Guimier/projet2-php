@@ -14,6 +14,9 @@ class RadiusAvortedCall extends RadiusCall {
 		parent::__construct( $caller, $callee, $date, 0 );
 	}
 	
+	/** Get the call type in the context of a set of accounts.
+	 * @param array $accounts The context accounts.
+	 */
 	public function getStatus( array $accounts ) {
 		return 'avorted';
 	}

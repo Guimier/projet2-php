@@ -1,11 +1,20 @@
 <?php
 
+/** Page showing the call log for an account. */
 class AccountLogPage extends LogPage {
 
+	/** Account for which the log is shown.
+	 * @type Account.
+	 */
 	private $account;
+	
+	/** Log to display.
+	 * @type array
+	 */
 	private $log;
 
-	public static function getAccessForm() {
+	/** Build the form giving access to this page. */
+	public static function buildAccessForm() {
 		$months = array(
 			1 => 'Janvier',
 			2 => 'Février',
@@ -31,6 +40,7 @@ class AccountLogPage extends LogPage {
 		);
 	}
 
+	/* Build the content. */
 	protected function build() {
 		$this->account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
 		$year   = (int) $this->getParam( 'year' );
@@ -41,10 +51,12 @@ class AccountLogPage extends LogPage {
 		$this->log = RadiusLog::filter( $fullLog, array( $this->account ) );
 	}
 
+	/* Get the page title. */
 	protected function getTitle() {
 		return 'Journal d’appel de ' . $this->account->getShortName( $this->config['domain'] );
 	}
 
+	/** Get the main content. */
 	protected function getcontent() {
 		return $this->buildCallLog( $this->log, array( $this->account ) );
 	}

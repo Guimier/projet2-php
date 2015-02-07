@@ -1,8 +1,11 @@
 <?php
 
-/** A device. */
+/** An account. */
 class Account {
 	
+	/** Get an instance.
+	 * @param string $id Account identifiant.
+	 */
 	public static function get( $id ) {
 		static $accounts = array();
 		
@@ -33,7 +36,9 @@ class Account {
 		return explode( '@', $this->id )[0];
 	}
 	
-	/** Get a short name of the account in a domain. */
+	/** Get a short name of the account in a domain.
+	 * @param string $domain Domain.
+	 */
 	public function getShortName( $domain ) {
 		return$this->getDomain() === $domain
 			? $this->getName()

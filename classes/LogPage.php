@@ -1,7 +1,11 @@
 <?php
 
+/** Page showing a call log. */
 abstract class LogPage extends Page {
 
+	/** Status texts
+	 * @type array
+	 */
 	private $statuses = array(
 		'avorted' => 'Avorté',
 		'internal' => 'Interne',
@@ -9,10 +13,10 @@ abstract class LogPage extends Page {
 		'callee' => 'Appelé'
 	);
 
-	private function getCallStatus( RadiusCall $call, array $accounts ) {
-		
-	}
-
+	/** Build a call log.
+	 * @param array $log Log to build.
+	 * @param array $accounts Context account.
+	 */
 	protected function buildCallLog( array $log, array $accounts ) {
 		$res = <<<HTML
 <table class="calllog">

@@ -72,16 +72,28 @@ abstract class Page {
 	
 /*----- HTML building -----*/
 
-	public static function escape( $text ) {
+	/** Escape a string for inclusion in HTML.
+	 * @param string $text The string to escape.
+	 */
+	protected static function escape( $text ) {
 		return htmlspecialchars( $text );
 	}
 	
-	public function buildTableCell( $text ) {
+	/** Build a table cell.
+	 * @param string $text The content (will be escaped).
+	 */
+	protected static function buildTableCell( $text ) {
 		return '<td>' . self::escape( $text ) . '</td>';
 	}
 	
 /*----- Form building -----*/
 	
+	/** Build a form.
+	 * @param string $page Identifiant of the page the forms gives acces to.
+	 * @param string $title Title of the form.
+	 * @param string $submit Text of the submit button.
+	 * @param string $inputs HTML string containing inputs.
+	 */
 	protected static function buildForm( $page, $title, $submit, $inputs ) {
 		return <<<HTML
 <div class="form">
@@ -96,6 +108,11 @@ HTML
 		;
 	}
 
+	/** Build an input with a label.
+	 * @param string $type Input type.
+	 * @param string $name Input name (use for the identifiant too).
+	 * @param string $label Label for the input.
+	 */
 	protected static function buildInput( $type, $name, $label ) {
 		return <<<HTML
 <label for="$name">$label</label>
@@ -104,7 +121,14 @@ HTML
 		;
 	}
 	
-	protected static function buildSelect( $values, $name, $label ) {
+
+	/** Build a select with a label.
+	 * @param array $values Associative array of options. Array keys are the actul values,
+	 *        array values are the displayed texts.
+	 * @param string $name Select name (use for the identifiant too).
+	 * @param string $label Label for the select.
+	 */
+	protected static function buildSelect( array $values, $name, $label ) {
 		$options = '';
 		
 		foreach ( $values as $id => $display ) {
