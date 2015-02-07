@@ -13,6 +13,10 @@ abstract class LogPage extends Page {
 		'callee' => 'Appelé'
 	);
 
+	/** Build HTML representation of an account.
+	 * @param Account $account The account to display.
+	 * @param array $context List of context account (will be highlighted).
+	 */
 	private function buildAccount( Account $account, array $context ) {
 		$escaped = $this->escape( $account->getShortName( $this->config['domain'] ) );
 		return in_array( $account, $context ) ? "<strong>$escaped</strong>" : $escaped;
