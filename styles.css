@@ -1,3 +1,12 @@
+/* Général */
+
+.error {
+	color: #cc0000;
+	font-size: 1.5em;
+}
+
+/* Tableaux */
+
 table {
 	border-collapse: collapse;
 }

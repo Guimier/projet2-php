@@ -14,14 +14,23 @@ abstract class Page {
 	 */
 	private $params;
 
+	/** ExceptionPage to display in case of exception.
+	 * @type ExceptionPage
+	 */
+	private $exceptionPage = null;
+
 	/** Constructor.
 	 * @param array $config Configuration.
 	 * @param array $params Web request parameters.
 	 */
-	final public function __construct( $config, $params ) {
+	public function __construct( array $config, array $params ) {
 		$this->config = $config;
 		$this->params = $params;
-		$this->build();
+		try {
+			$this->build();
+		} catch ( Exception $e ) {
+			$this->exceptionPage = new ExceptionPage( $config, $params, $e );
+		}
 	}
 
 	/** Get a required parameter.
@@ -37,6 +46,7 @@ abstract class Page {
 
 	/* Build the content.
 	 * Children may override this to define dynamic content.
+	 * This method may throw an exception, which will be displayed.
 	 */
 	protected function build() {}
 
@@ -52,8 +62,18 @@ abstract class Page {
 
 	/** Output the HTTP/HTML document. */
 	final public function display() {
-		header( 'Content-Type: text/html; charset=UTF-8' );
-		require 'template.php';
+		if ( is_null( $this->exceptionPage ) ) {
+			header( 'Content-Type: text/html; charset=UTF-8' );
+			require 'template.php';
+		} else {
+			$this->exceptionPage->display();
+		}
+	}
+	
+/*----- HTML building -----*/
+
+	public static function escape( $text ) {
+		return htmlspecialchars( $text );
 	}
 	
 /*----- Form building -----*/
