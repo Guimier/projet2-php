@@ -13,5 +13,9 @@ class RadiusAvortedCall extends RadiusCall {
 	public function __construct( $caller, $callee, $date ) {
 		parent::__construct( $caller, $callee, $date, 0 );
 	}
+	
+	public function getStatus( array $accounts ) {
+		return 'avorted';
+	}
 
 }

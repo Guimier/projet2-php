@@ -76,6 +76,10 @@ abstract class Page {
 		return htmlspecialchars( $text );
 	}
 	
+	public function buildTableCell( $text ) {
+		return '<td>' . self::escape( $text ) . '</td>';
+	}
+	
 /*----- Form building -----*/
 	
 	protected static function buildForm( $page, $title, $submit, $inputs ) {

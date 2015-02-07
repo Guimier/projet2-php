@@ -55,5 +55,10 @@ abstract class RadiusCall {
 	public function getDuration() {
 		return $this->duration;
 	}
+	
+	/** Get the call type in the context of a set of accounts.
+	 * @param array(Account) $accounts The context accounts.
+	 */
+	abstract public function getStatus( array $accounts );
 
 }

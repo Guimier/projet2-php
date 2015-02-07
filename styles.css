@@ -11,17 +11,18 @@ table {
 	border-collapse: collapse;
 }
 
-table thead tr:before {
-	content: '';
-	border: none;
+.hiddencell {
+	border: transparent;
+	color: transparent;
+	background: transparent;
 }
 
 table td,
-table th,
-tr:before {
+table th {
 	border: 1px solid #aaa;
 	padding: 0.2em 0.4em;
 	display: table-cell;
+	text-align: center;
 }
 
 table tr:nth-child(2n+1) {
@@ -36,20 +37,11 @@ table th {
 	background: #d0d0d0;
 }
 
-tr.avorted:before {
-	content: 'Avorté';
-	color: #cc0000;
-}
-
-tr.caller:before {
-	content: 'Appellant';
-	color: #008800;
-}
-
-tr.callee:before {
-	content: 'Appellé';
-	color: #555;
-}
+.calllog tr :first-child { text-align: left; }
+tr.avorted :first-child { color: #cc0000; }
+tr.internal :first-child { color: #0000aa; }
+tr.caller :first-child { color: #008800; }
+tr.callee :first-child { color: #555; }
 
 /* Forms */
 .form {

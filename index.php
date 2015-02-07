@@ -15,7 +15,7 @@ $pageClass = 'IndexPage';
 if ( array_key_exists( 'page', $_GET ) ) {
 	switch ( $_GET['page'] ) {
 		case 'log':
-			$pageClass = 'LogPage';
+			$pageClass = 'AccountLogPage';
 			break;
 		case 'invoice':
 			$pageClass = 'InvoicePage';

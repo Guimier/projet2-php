@@ -1,55 +1,24 @@
 <?php
 
-class LogPage extends Page {
+abstract class LogPage extends Page {
 
-	private $account;
-	private $log;
+	private $statuses = array(
+		'avorted' => 'Avorté',
+		'internal' => 'Interne',
+		'caller' => 'Appelant',
+		'callee' => 'Appelé'
+	);
 
-	public static function getAccessForm() {
-		$months = array(
-			1 => 'Janvier',
-			2 => 'Février',
-			3 => 'Mars',
-			4 => 'Avril',
-			5 => 'Mai',
-			6 => 'Juin',
-			7 => 'Juillet',
-			8 => 'Août',
-			9 => 'Septembre',
-			10 => 'Octobre',
-			11 => 'Novembre',
-			12 => 'Décembre'
-		);
+	private function getCallStatus( RadiusCall $call, array $accounts ) {
 		
-		return self::buildForm(
-			'log',
-			'Voir le journal d’un appareil',
-			'Voir',
-			self::buildInput( 'text', 'account', 'Compte' )
-				. self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' )
-				. self::buildSelect( $months, 'month', 'Mois' )
-		);
 	}
 
-	protected function build() {
-		$this->account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
-		$year   = (int) $this->getParam( 'year' );
-		$month  = (int) $this->getParam( 'month' );
-		
-		$rl = new RadiusLog( $this->config['logsdir'] );
-		$fullLog = $rl->getMonthCalls( $year, $month );
-		$this->log = RadiusLog::filter( $fullLog, array( $this->account ) );
-	}
-
-	protected function getTitle() {
-		return 'Journal d’appel de ' . $this->account->getShortName( $this->config['domain'] );
-	}
-
-	protected function getcontent() {
+	protected function buildCallLog( array $log, array $accounts ) {
 		$res = <<<HTML
-<table>
+<table class="calllog">
 	<thead>
 		<tr>
+			<th scope="col" class="hiddencell">Statut</th>
 			<th scope="col">Date</th>
 			<th scope="col">Durée</th>
 			<th scope="col">Appelant</th>
@@ -60,20 +29,15 @@ class LogPage extends Page {
 HTML
 		;
 		
-		foreach ( $this->log as $call ) {
-			if ( $call instanceof RadiusAvortedCall ) {
-				$type = 'avorted';
-			} else if ( $call->getCaller() === $this->account ) {
-				$type = 'caller';
-			} else  {
-				$type = 'callee';
-			}
+		foreach ( $log as $call ) {
+			$status = $call->getStatus( $accounts );
 			
-			$res .= "<tr class=\"$type\">";
-			$res .= '<td>' . strftime( $this->config['dateformat'], $call->getStartTime() ) . '</td>';
-			$res .= '<td>' . $call->getDuration() . ' s</td>';
-			$res .= '<td>' . $call->getCaller()->getShortName( $this->config['domain'] ) . '</td>';
-			$res .= '<td>' . $call->getCallee()->getShortName( $this->config['domain'] ) . '</td>';
+			$res .= "<tr class=\"$status\">";
+			$res .= $this->buildTableCell( $this->statuses[$status] );
+			$res .= $this->buildTableCell( strftime( $this->config['dateformat'], $call->getStartTime() ) );
+			$res .= $this->buildTableCell( $call->getDuration() . ' s' );
+			$res .= $this->buildTableCell( $call->getCaller()->getShortName( $this->config['domain'] ) );
+			$res .= $this->buildTableCell( $call->getCallee()->getShortName( $this->config['domain'] ) );
 			$res .= "</tr>";
 		}
 		
