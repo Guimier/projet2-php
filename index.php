@@ -1,6 +1,14 @@
 <?php
 
-set_include_path( __DIR__ . '/classes' );
+function path( $relative ) {
+	return __DIR__ . '/' . $relative;
+}
+
+set_include_path( implode( ':', array(
+	path( 'classes' ),
+	path( 'classes/pages' ),
+	path( 'classes/log' )
+) ) );
 
 function __autoload( $class ) {
 	require_once "$class.php";
