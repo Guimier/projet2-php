@@ -3,7 +3,7 @@
 class IndexPage extends Page {
 
 	protected function getTitle() {
-		return 'Gestionaire de factures téléphoniques';
+		return 'Gestionnaire de factures téléphoniques';
 	}
 
 	protected function getcontent() {
