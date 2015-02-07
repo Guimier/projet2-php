@@ -28,7 +28,6 @@
 		border: 1px solid #aaaaaa;
 		padding: 0.2em 0.4em;
 		display: table-cell;
-		text-align: center;
 	}
 
 	tbody tr:nth-child(2n+1) {
@@ -44,7 +43,7 @@
 	}
 
 	/*** Call logs ***/
-		.calllog tr > :first-child { text-align: left; }
+		.calllog tr > :nth-child(3) { text-align: center; }
 		tr.avorted > :first-child { color: #cc0000; }
 		tr.internal > :first-child { color: #0000aa; }
 		tr.caller > :first-child { color: #008800; }
