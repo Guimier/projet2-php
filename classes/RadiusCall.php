@@ -4,12 +4,12 @@
 abstract class RadiusCall {
 
 	/** Caller identifiant.
-	 * @type string
+	 * @type Account
 	 */
 	private $caller;
 
 	/** Callee identifiant.
-	 * @type string
+	 * @type Account
 	 */
 	private $callee;
 
@@ -30,24 +30,10 @@ abstract class RadiusCall {
 	 * @param integer $duration Duration of the call.
 	 */
 	protected function __construct( $caller, $callee, $start, $duration ) {
-		$this->caller = $caller;
-		$this->callee = $callee;
+		$this->caller = Account::get( $caller );
+		$this->callee = Account::get( $callee );
 		$this->start = $start;
 		$this->duration = $duration;
-	}
-	
-	/** Get the domain part of an identifier.
-	 * @param string $identifier Identifier.
-	 */
-	public static function getDomain( $identifier ) {
-		return explode( '@', $identifier )[1];
-	}
-	
-	/** Get the name part of an identifier.
-	 * @param string $identifier Identifier.
-	 */
-	public static function getName( $identifier ) {
-		return explode( '@', $identifier )[0];
 	}
 
 	/** Get the caller. */
@@ -58,14 +44,6 @@ abstract class RadiusCall {
 	/** Get the callee. */
 	public function getCallee() {
 		return $this->callee;
-	}
-	
-	public function callerIs( $name, $domain ) {
-		return $this->caller === "$name@$domain";
-	}
-	
-	public function calleeIs( $name, $domain ) {
-		return $this->callee === "$name@$domain";
 	}
 	
 	/** Get the start time (UNIX timestamp). */

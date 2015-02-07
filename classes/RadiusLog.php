@@ -144,15 +144,15 @@ class RadiusLog {
 		return $calls;
 	}
 	
-	/** Filter log by device.
+	/** Filter log by accounts.
 	 * @param array(RadiusCall) Log as returned by #getMonthCalls.
-	 * @param array(string) $devices Devices to select.
+	 * @param array(string) $accounts Accounts to select.
 	 */
-	public static function filter( $log, $devices ) {
+	public static function filter( $log, $accounts ) {
 		return array_filter(
 			$log,
-			function ( $call ) use ( $devices ) {
-				return in_array( $call->getCaller(), $devices ) || in_array( $call->getCallee(), $devices );
+			function ( $call ) use ( $accounts ) {
+				return in_array( $call->getCaller(), $accounts ) || in_array( $call->getCallee(), $accounts );
 			}
 		);
 	}

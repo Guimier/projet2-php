@@ -2,7 +2,7 @@
 
 class LogPage extends Page {
 
-	private $device;
+	private $account;
 	private $log;
 
 	public static function getAccessForm() {
@@ -25,20 +25,20 @@ class LogPage extends Page {
 			'log',
 			'Voir le journal d’un appareil',
 			'Voir',
-			self::buildInput( 'text', 'deviceid', 'Appareil' )
+			self::buildInput( 'text', 'account', 'Compte' )
 				. self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' )
 				. self::buildSelect( $months, 'month', 'Mois' )
 		);
 	}
 
 	protected function build() {
-		$this->device = $this->getParam( 'deviceid' ) . '@' . $this->config['domain'];
+		$this->account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
 		$year   = (int) $this->getParam( 'year' );
 		$month  = (int) $this->getParam( 'month' );
 		
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
-		$this->log = RadiusLog::filter( $fullLog, array( $this->device ) );
+		$this->log = RadiusLog::filter( $fullLog, array( $this->account ) );
 	}
 
 	protected function getTitle() {
@@ -63,7 +63,7 @@ HTML
 		foreach ( $this->log as $call ) {
 			if ( $call instanceof RadiusAvortedCall ) {
 				$type = 'avorted';
-			} else if ( $call->getCaller() === $this->device ) {
+			} else if ( $call->getCaller() === $this->account ) {
 				$type = 'caller';
 			} else  {
 				$type = 'callee';
@@ -72,8 +72,8 @@ HTML
 			$res .= "<tr class=\"$type\">";
 			$res .= '<td>' . strftime( $this->config['dateformat'], $call->getStartTime() ) . '</td>';
 			$res .= '<td>' . $call->getDuration() . ' s</td>';
-			$res .= '<td>' . $call->getCaller() . '</td>';
-			$res .= '<td>' . $call->getCallee() . ' s</td>';
+			$res .= '<td>' . $call->getCaller()->getShortName( $this->config['domain'] ) . '</td>';
+			$res .= '<td>' . $call->getCallee()->getShortName( $this->config['domain'] ) . '</td>';
 			$res .= "</tr>";
 		}
 		
