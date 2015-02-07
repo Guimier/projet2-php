@@ -25,11 +25,11 @@ table th {
 	text-align: center;
 }
 
-table tr:nth-child(2n+1) {
+tbody tr:nth-child(2n+1) {
 	background: #f8f8f8;
 }
 
-table tr:nth-child(2n) {
+tbody tr:nth-child(2n) {
 	background: #e0e0e0;
 }
 
