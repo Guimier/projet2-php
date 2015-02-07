@@ -7,7 +7,7 @@ class IndexPage extends Page {
 	}
 
 	protected function getcontent() {
-		return LogPage::getAccessForm();
+		return AccountLogPage::getAccessForm();
 	}
 
 }
