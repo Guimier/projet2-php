@@ -8,7 +8,7 @@ Fri Jan 23 16:34:45 2015
 	Sip-To-Tag = "205059308"
 	Acct-Session-Id = "J8Vahbnui3"
 	Calling-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
-	Called-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Called-Station-Id = "sip:7000@ikone22.rcisima.isima.fr"
 	NAS-Port = 5060
 	Acct-Delay-Time = 0
 	NAS-IP-Address = 127.0.0.1
@@ -24,7 +24,7 @@ Fri Jan 23 16:35:23 2015
 	Sip-From-Tag = "205059308"
 	Sip-To-Tag = "h9dll~Vm3"
 	Acct-Session-Id = "J8Vahbnui3"
-	Calling-Station-Id = "sip:8000@ikone20.rcisima.isima.fr"
+	Calling-Station-Id = "sip:7000@ikone22.rcisima.isima.fr"
 	Called-Station-Id = "sip:8001@ikone20.rcisima.isima.fr"
 	NAS-Port = 5060
 	Acct-Delay-Time = 0
