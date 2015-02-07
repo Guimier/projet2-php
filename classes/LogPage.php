@@ -42,7 +42,7 @@ class LogPage extends Page {
 	}
 
 	protected function getTitle() {
-		return 'Gestionaire de factures téléphoniques';
+		return 'Journal d’appel de ' . $this->account->getShortName( $this->config['domain'] );
 	}
 
 	protected function getcontent() {
