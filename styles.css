@@ -44,11 +44,11 @@
 	}
 
 	/*** Call logs ***/
-		.calllog tr :first-child { text-align: left; }
-		tr.avorted :first-child { color: #cc0000; }
-		tr.internal :first-child { color: #0000aa; }
-		tr.caller :first-child { color: #008800; }
-		tr.callee :first-child { color: #555; }
+		.calllog tr > :first-child { text-align: left; }
+		tr.avorted > :first-child { color: #cc0000; }
+		tr.internal > :first-child { color: #0000aa; }
+		tr.caller > :first-child { color: #008800; }
+		tr.callee > :first-child { color: #555; }
 
 /***** Forms *****/
 	

@@ -13,6 +13,11 @@ abstract class LogPage extends Page {
 		'callee' => 'Appelé'
 	);
 
+	private function buildAccount( Account $account, array $context ) {
+		$escaped = $this->escape( $account->getShortName( $this->config['domain'] ) );
+		return in_array( $account, $context ) ? "<strong>$escaped</strong>" : $escaped;
+	}
+
 	/** Build a call log.
 	 * @param array $log Log to build.
 	 * @param array $accounts Context account.
@@ -40,8 +45,8 @@ HTML
 			$res .= $this->buildTableCell( $this->statuses[$status] );
 			$res .= $this->buildTableCell( strftime( $this->config['dateformat'], $call->getStartTime() ) );
 			$res .= $this->buildTableCell( $call->getDuration() . ' s' );
-			$res .= $this->buildTableCell( $call->getCaller()->getShortName( $this->config['domain'] ) );
-			$res .= $this->buildTableCell( $call->getCallee()->getShortName( $this->config['domain'] ) );
+			$res .= '<td>' . $this->buildAccount( $call->getCaller(), $accounts ) . '</td>';
+			$res .= '<td>' . $this->buildAccount( $call->getCallee(), $accounts ) . '</td>';
 			$res .= "</tr>";
 		}
 		
