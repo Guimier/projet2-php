@@ -55,8 +55,8 @@ class Account {
 	/** Check if the account is in the given context.
 	 * @param mixed $context Context. May be:
 	 *        * an array of Account objects;
-	 *        * a domain in the form '@domain.name';
-	 *        * a '*' string (all).
+	 *        * a domain in the form `@domain.name`;
+	 *        * a `*` string (all).
 	 */
 	public function inContext( $context ) {
 		if ( is_array( $context ) ) {

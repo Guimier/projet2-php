@@ -26,10 +26,10 @@ class FilteredCallList extends CallList {
 	 * @param CallList $list Original list.
 	 * @param callable $filter Called as `boolean filter( Call )`.
 	 */
-	public function __construct( CallList $list, $test ) {
+	public function __construct( CallList $list, $filter ) {
 		$this->filteredOut = new CallList();
 		foreach ( $list as $call ) {
-			if ( call_user_func( $test, $call ) ) {
+			if ( call_user_func( $filter, $call ) ) {
 				$this->add( $call );
 			} else {
 				$this->filteredOut->add( $call );
