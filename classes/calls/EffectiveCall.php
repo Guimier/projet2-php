@@ -1,7 +1,7 @@
 <?php
 
-/** An effective call as described in the radius log. */
-class RadiusEffectiveCall extends RadiusCall {
+/** An effective call. */
+class EffectiveCall extends Call {
 
 	/** Constructor.
 	 * @param string $caller Identifer of the caller.

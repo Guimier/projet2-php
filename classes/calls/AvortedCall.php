@@ -1,7 +1,7 @@
 <?php
 
-/** An avorted call as described in the radius log. */
-class RadiusAvortedCall extends RadiusCall {
+/** An avorted call. */
+class AvortedCall extends Call {
 
 	/** Constructor.
 	 * @param string $caller Identifer of the caller.

@@ -112,7 +112,7 @@ class RadiusLog {
 						throw new Exception( 'Unstarted call #' . $id );
 					}
 					
-					$calls[] = new RadiusEffectiveCall(
+					$calls[] = new EffectiveCall(
 						$started[$id]['caller'],
 						$started[$id]['callee'],
 						$started[$id]['start'],
@@ -123,7 +123,7 @@ class RadiusLog {
 					break;
 				
 				case 'Failed':
-					$calls[] = new RadiusAvortedCall(
+					$calls[] = new AvortedCall(
 						$this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
 						$this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
 						(int) $logItem['Timestamp']

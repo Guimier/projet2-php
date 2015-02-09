@@ -1,7 +1,7 @@
 <?php
 
-/** A call as described in the radius log. */
-abstract class RadiusCall {
+/** A call. */
+abstract class Call {
 
 	/** Caller identifiant.
 	 * @type Account
