@@ -28,6 +28,10 @@ function __autoload( $class ) {
 
 $config = json_decode( file_get_contents( __DIR__ . '/config.json' ), true );
 
+if ( is_null( $config ) ) {
+	require path( 'error_config.php' );
+}
+
 /*----- Output -----*/
 
 $pageClass = 'IndexPage';
