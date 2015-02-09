@@ -14,11 +14,11 @@ class EffectiveCall extends Call {
 	}
 	
 	/** Get the call type in the context of a set of accounts.
-	 * @param array $accounts The context accounts.
+	 * @param mixed $context Context, see Account::inContext.
 	 */
-	public function getStatus( array $accounts ) {
-		$callerInside = in_array( $this->getCaller(), $accounts );
-		$calleeInside = in_array( $this->getCallee(), $accounts );
+	public function getStatus( $context ) {
+		$callerInside = $this->getCaller()->inContext( $context );
+		$calleeInside = $this->getCallee()->inContext( $context );
 		
 		if ( $callerInside ) {
 			if ( $calleeInside ) {

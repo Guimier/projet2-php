@@ -35,8 +35,7 @@ class AccountLogPage extends LogPage {
 			'Voir le journal d’un appareil',
 			'Voir',
 			self::buildInput( 'text', 'account', 'Compte' )
-				. self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' )
-				. self::buildSelect( $months, 'month', 'Mois' )
+				. self::buildYearSelect() . self::buildMonthSelect()
 		);
 	}
 
@@ -48,7 +47,7 @@ class AccountLogPage extends LogPage {
 		
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
-		$this->log = new FilteredCallList( $fullLog, FilteredCallList::filterByAccounts( array( $this->account ) ) );
+		$this->log = new FilteredCallList( $fullLog, FilteredCallList::filterByContext( array( $this->account ) ) );
 	}
 
 	/* Get the page title. */

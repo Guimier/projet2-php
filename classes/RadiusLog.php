@@ -34,7 +34,7 @@ class RadiusLog {
 	private function unserializeDay( $year, $month, $dom ) {
 		$path = $this->getPath( $year, $month, $dom );
 		$res = array();
-		
+
 		if ( file_exists( $path ) ) {
 			$content = file_get_contents( $path );
 			$items = explode( "\n\n", $content );

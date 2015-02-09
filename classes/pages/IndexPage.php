@@ -10,7 +10,8 @@ class IndexPage extends Page {
 
 	/** Get the main content. */
 	protected function getcontent() {
-		return AccountLogPage::buildAccessForm();
+		return AccountLogPage::buildAccessForm()
+			. GlobalLogPage::buildAccessForm();
 	}
 
 }

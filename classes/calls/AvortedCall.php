@@ -13,9 +13,9 @@ class AvortedCall extends Call {
 	}
 	
 	/** Get the call type in the context of a set of accounts.
-	 * @param array $accounts The context accounts.
+	 * @param mixed $context Context, see Account::inContext.
 	 */
-	public function getStatus( array $accounts ) {
+	public function getStatus( $context ) {
 		return 'avorted';
 	}
 

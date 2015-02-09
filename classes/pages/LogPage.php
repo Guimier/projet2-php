@@ -15,18 +15,18 @@ abstract class LogPage extends Page {
 
 	/** Build HTML representation of an account.
 	 * @param Account $account The account to display.
-	 * @param array $context List of context account (will be highlighted).
+	 * @param mixed $context Context (highlighted), see Account::inContext.
 	 */
-	private function buildAccount( Account $account, array $context ) {
+	private function buildAccount( Account $account, $context ) {
 		$escaped = $this->escape( $account->getShortName( $this->config['domain'] ) );
-		return in_array( $account, $context ) ? "<strong>$escaped</strong>" : $escaped;
+		return $account->inContext( $context ) ? "<strong>$escaped</strong>" : $escaped;
 	}
 
 	/** Build a call log.
 	 * @param CallList $log Log to build.
-	 * @param array $accounts Context account.
+	 * @param mixed $context Context, see Account::inContext.
 	 */
-	protected function buildCallLog( CallList $log, array $accounts ) {
+	protected function buildCallLog( CallList $log, $context ) {
 		$res = <<<HTML
 <table class="calllog">
 	<thead>
@@ -43,14 +43,14 @@ HTML
 		;
 		
 		foreach ( $log as $call ) {
-			$status = $call->getStatus( $accounts );
+			$status = $call->getStatus( $context );
 			
 			$res .= "<tr class=\"$status\">";
 			$res .= $this->buildTableCell( $this->statuses[$status] );
 			$res .= $this->buildTableCell( strftime( $this->config['dateformat'], $call->getStartTime() ) );
 			$res .= $this->buildTableCell( $call->getDuration() . ' s' );
-			$res .= '<td>' . $this->buildAccount( $call->getCaller(), $accounts ) . '</td>';
-			$res .= '<td>' . $this->buildAccount( $call->getCallee(), $accounts ) . '</td>';
+			$res .= '<td>' . $this->buildAccount( $call->getCaller(), $context ) . '</td>';
+			$res .= '<td>' . $this->buildAccount( $call->getCallee(), $context ) . '</td>';
 			$res .= "</tr>";
 		}
 		

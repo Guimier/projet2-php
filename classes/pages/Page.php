@@ -121,8 +121,7 @@ HTML
 		;
 	}
 	
-
-	/** Build a select with a label.
+	/** Build a selector with a label.
 	 * @param array $values Associative array of options. Array keys are the actul values,
 	 *        array values are the displayed texts.
 	 * @param string $name Select name (use for the identifiant too).
@@ -142,6 +141,33 @@ $options
 </select>
 HTML
 		;
+	}
+	
+	/** Build a month selector. */
+	protected static function buildMonthSelect() {
+		return self::buildSelect(
+			array(
+				1 => 'Janvier',
+				2 => 'Février',
+				3 => 'Mars',
+				4 => 'Avril',
+				5 => 'Mai',
+				6 => 'Juin',
+				7 => 'Juillet',
+				8 => 'Août',
+				9 => 'Septembre',
+				10 => 'Octobre',
+				11 => 'Novembre',
+				12 => 'Décembre'
+			),
+			'month',
+			'Mois'
+		);
+	}
+	
+	/** Build a year selector. */
+	protected static function buildYearSelect() {
+		return self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' );
 	}
 	
 }
