@@ -28,12 +28,14 @@ class Account {
 	
 	/** Get the domain part of the account. */
 	public function getDomain() {
-		return explode( '@', $this->id )[1];
+		$exploded = explode( '@', $this->id );
+		return $exploded[1];
 	}
 	
 	/** Get the name of the account. */
 	public function getName() {
-		return explode( '@', $this->id )[0];
+		$exploded = explode( '@', $this->id );
+		return $exploded[0];
 	}
 	
 	/** Get a short name of the account in a domain.
