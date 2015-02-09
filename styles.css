@@ -38,16 +38,23 @@
 		background: #e0e0e0;
 	}
 
-	table th {
+	table thead th,
+	table thead td,
+	table tfoot th,
+	table tfoot td {
 		background: #d0d0d0;
 	}
 
 	/*** Call logs ***/
-		.calllog tr > :nth-child(3) { text-align: center; }
+		.calllog tbody tr > :nth-child(3) { text-align: center; }
 		tr.avorted > :first-child { color: #cc0000; }
 		tr.internal > :first-child { color: #0000aa; }
 		tr.caller > :first-child { color: #008800; }
 		tr.callee > :first-child { color: #555; }
+
+	/*** Invoices ***/
+		.invoice tbody td { text-align: right; }
+		.invoice tbody tr > :first-child { text-align: left; }
 
 /***** Forms *****/
 	

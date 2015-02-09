@@ -32,7 +32,10 @@ class AccountLogPage extends LogPage {
 		
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
-		$this->log = new FilteredCallList( $fullLog, FilteredCallList::filterByContext( array( $this->account ) ) );
+		$this->log = new FilteredCallList(
+			$fullLog,
+			FilteredCallList::filterByContext( array( $this->account ) )
+		);
 	}
 
 	/* Get the page title. */

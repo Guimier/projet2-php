@@ -14,6 +14,22 @@ class CallList implements Iterator {
 		$this->calls[] = $call;
 	}
 
+	/** Get the call list length. */
+	public function getLength() {
+		return count( $this->calls );
+	}
+
+	/** Get the total call time (seconds). */
+	public function getTotalDuration() {
+		$res = 0;
+
+		foreach ( $this->calls as $call ) {
+			$res += $call->getDuration();
+		}
+
+		return $res;
+	}
+
 /*----- Iterator -----*/
 	
 	/** Iteration index

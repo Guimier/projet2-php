@@ -1,5 +1,19 @@
 {
-	"logsdir": "/var/log/freeradius/radacct/127.0.0.1",
-	"domain": "votre.domaine.ici",
-	"dateformat": "Le %e à %k h %M"
+	"currency": "\u00A0€",
+	"logsdir": "/var/www/logs/examples",
+	"domain": "ikone20.rcisima.isima.fr",
+	"dateformat": "Le %e à %k h %M",
+	"groups": {
+		"compta": {
+			"name": "Comptabilité",
+			"accounts": [ "8000", "8001" ],
+			"prices": [
+				[ "compta", 1 ]
+			]
+		}
+	},
+	"prices": [
+		[ "@ikone20.rcisima.isima.fr", 2 ],
+		[ "*", 4 ]
+	]
 }

@@ -16,13 +16,159 @@ class InvoicePage extends Page {
 		);
 	}
 
+	/** Group for which the invoice will be displayed.
+	 * @param string
+	 */
+	private $group;
+
+	/** Invoice.
+	 * @type array
+	 */
+	private $invoice;
+
+	/** Get an array of account from a group name.
+	 * @param string $group Group name.
+	 */
+	private function getAccountsGroup( $group ) {
+		$res = array();
+
+		if ( isset( $this->config['groups'][$group]['accounts'] ) ) {
+			foreach ( $this->config['groups'][$group]['accounts'] as $acctId ) {
+				$res[] = Account::get( $acctId . '@' . $this->config['domain'] );
+			}
+		}
+
+		return $res;
+	}
+
+	/** Apply the prices.
+	 * @param CallList $log Log to split.
+	 * @param array $prices Prices definition as in configuration.
+	 */
+	private function applyPrices( CallList $log, array $prices ) {
+		$remaining = $log;
+		$res = array();
+
+		foreach ( $prices as $priceDef ) {
+			$context = $priceDef[0];
+			$price = $priceDef[1];
+
+			if ( $context[0] === '*' ) {
+				$res[] = array(
+					'label' => 'Autres',
+					'duration' => $remaining->getTotalDuration(),
+					'price' => $price
+				);
+				/* Nothing left */
+				$remaining = new CallList();
+				break;
+			} else {
+				if ( $context[0] !== '@' ) {
+					$label = $this->config['groups'][$context]['name'];
+					$context = $this->getAccountsGroup( $context );
+				} else {
+					$label = substr( $context, 1 );
+				}
+
+				$partialLog = new FilteredCallList(
+					$remaining,
+					FilteredCallList::filterByCallee( $context )
+				);
+				$remaining = $partialLog->getFilteredOut();
+
+				$res[] = array(
+					'label' => $label,
+					'duration' => $partialLog->getTotalDuration(),
+					'price' => $price
+				);
+			}
+		}
+
+		if ( $remaining->getLength() > 0 ) {
+			# throw new Exception( 'Les appels ne correspondent pas tous aux filtres de prix.' );
+		}
+
+		return $res;
+	}
+
+	/** Build the content. */
+	protected function build() {
+		$year = (int) $this->getParam( 'year' );
+		$month = (int) $this->getParam( 'month' );
+		$this->group = $this->getParam( 'group' );
+
+		$accounts = $this->getAccountsGroup( $this->group );
+		$rl = new RadiusLog( $this->config['logsdir'] );
+		$fullLog = $rl->getMonthCalls( $year, $month );
+		$log = new FilteredCallList(
+			$fullLog,
+			FilteredCallList::filterByCaller( $accounts )
+		);
+		
+		$prices = $this->config['prices'];
+		if ( isset( $this->config['groups'][$this->group]['prices'] ) ) {
+			$prices = array_merge(
+				$this->config['groups'][$this->group]['prices'],
+				$prices
+			);
+		}
+
+		$this->invoice = $this->applyPrices( $log, $prices );
+	}
+
 	/** Get the page title. */
 	protected function getTitle() {
-		return 'Facture';
+		return 'Facture : ' . $this->config['groups'][$this->group]['name'];
 	}
 
 	/** Get the main content. */
 	protected function getcontent() {
-		return 'TODO';
+		$currency = $this->escape( $this->config['currency'] );
+		$res = '<!-- Groupe `' . $this->escape( $this->group ) . '` -->';
+		$res .= <<<HTML
+<table class="invoice">
+	<thead>
+		<tr>
+			<th scope="col">Destination</th>
+			<th scope="col">Temps</th>
+			<th scope="col">Tarif ($currency/heure)</th>
+			<th scope="col">Prix</th>
+		</tr>
+	</thead>
+	<tbody>
+HTML
+		;
+
+		$total = 0;
+
+		foreach ( $this->invoice as $group ) {
+			$local = $group['duration'] * $group['price'] / 3600;
+			$res .= '<tr>';
+			$res .= $this->buildTableCell( $group['label'] );
+			$res .= $this->buildTableCell( $group['duration'] . ' s' );
+			$res .= $this->buildTableCell( $group['price'] );
+			$res .= $this->buildTableCell( $local . $this->config['currency'] );
+			$res .= '</tr>';
+
+			$total += $local;
+		}
+
+		$currency = $this->escape( $this->config['currency'] );
+
+		$res .= <<<HTML
+	</tbody>
+	<tfoot>
+		<tr>
+			<td class="hiddencell"></td>
+			<td class="hiddencell"></td>
+			<td class="hiddencell"></td>
+			<td>$total$currency</td>
+		</tr>
+	</tfoot>
+</table>
+HTML
+		;
+
+		return $res;
 	}
 }
