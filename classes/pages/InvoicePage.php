@@ -26,21 +26,6 @@ class InvoicePage extends Page {
 	 */
 	private $invoice;
 
-	/** Get an array of account from a group name.
-	 * @param string $group Group name.
-	 */
-	private function getAccountsGroup( $group ) {
-		$res = array();
-
-		if ( isset( $this->config['groups'][$group]['accounts'] ) ) {
-			foreach ( $this->config['groups'][$group]['accounts'] as $acctId ) {
-				$res[] = Account::get( $acctId . '@' . $this->config['domain'] );
-			}
-		}
-
-		return $res;
-	}
-
 	/** Apply the prices.
 	 * @param CallList $log Log to split.
 	 * @param array $prices Prices definition as in configuration.
@@ -65,7 +50,10 @@ class InvoicePage extends Page {
 			} else {
 				if ( $context[0] !== '@' ) {
 					$label = $this->config['groups'][$context]['name'];
-					$context = $this->getAccountsGroup( $context );
+					$context = Account::getGroup(
+						$this->config['groups'][$context],
+						$this->config['domain']
+					);
 				} else {
 					$label = substr( $context, 1 );
 				}
@@ -97,7 +85,10 @@ class InvoicePage extends Page {
 		$month = (int) $this->getParam( 'month' );
 		$this->group = $this->getParam( 'group' );
 
-		$accounts = $this->getAccountsGroup( $this->group );
+		$accounts = Account::getGroup(
+			$this->config['groups'][$this->group],
+			$this->config['domain']
+		);
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
 		$log = new FilteredCallList(

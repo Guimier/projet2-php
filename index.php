@@ -39,6 +39,7 @@ $pageClass = 'IndexPage';
 $pageClasses = array(
 	'log' => 'AccountLogPage',
 	'global' => 'GlobalLogPage',
+	'group' => 'GroupLogPage',
 	'invoice' => 'InvoicePage'
 );
 

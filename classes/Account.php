@@ -15,6 +15,21 @@ class Account {
 		
 		return $accounts[$id];
 	}
+
+	/** Get an array of accounts from a group description.
+	 * @param array $group Group description.
+	 */
+	public function getGroup( $group, $domain ) {
+		$res = array();
+
+		if ( array_key_exists( 'accounts', $group ) ) {
+			foreach ( $group['accounts'] as $acctId ) {
+				$res[] = Account::get( "$acctId@$domain" );
+			}
+		}
+
+		return $res;
+	}
 	
 	/** Account identifiant. */
 	private $id;
