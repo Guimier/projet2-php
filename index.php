@@ -32,15 +32,13 @@ $config = json_decode( file_get_contents( __DIR__ . '/config.json' ), true );
 
 $pageClass = 'IndexPage';
 
-if ( array_key_exists( 'page', $_GET ) ) {
-	switch ( $_GET['page'] ) {
-		case 'log':
-			$pageClass = 'AccountLogPage';
-			break;
-		case 'invoice':
-			$pageClass = 'InvoicePage';
-			break;
-	}
+$pageClasses = array(
+	'log' => 'AccountLogPage',
+	'invoice' => 'InvoicePage'
+);
+
+if ( array_key_exists( 'page', $_GET ) && array_key_exists( $_GET['page'], $pageClasses ) ) {
+	$pageClass = $pageClasses[ $_GET['page'] ];
 }
 
 $page = new $pageClass( $config, $_GET );
