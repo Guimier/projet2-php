@@ -64,7 +64,7 @@ abstract class Page {
 	final public function display() {
 		if ( is_null( $this->exceptionPage ) ) {
 			header( 'Content-Type: text/html; charset=UTF-8' );
-			require path( 'template.php' );
+			require path( 'html/template.php' );
 		} else {
 			$this->exceptionPage->display();
 		}
