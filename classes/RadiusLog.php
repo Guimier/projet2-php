@@ -89,11 +89,12 @@ class RadiusLog {
 	/** Get the list of calls for a month of activity.
 	 * @param integer $year Year.
 	 * @param integer $month Month.
+	 * @return CallList
 	 */
 	public function getMonthCalls( $year, $month ) {
 		$monthLog = $this->unserializeMonth( $year, $month );
 		$started = array();
-		$calls = array();
+		$calls = new CallList();
 		
 		foreach ( $monthLog as $logItem ) {
 			$id = $logItem['Acct-Unique-Session-Id'];
@@ -112,22 +113,22 @@ class RadiusLog {
 						throw new Exception( 'Unstarted call #' . $id );
 					}
 					
-					$calls[] = new EffectiveCall(
+					$calls->add( new EffectiveCall(
 						$started[$id]['caller'],
 						$started[$id]['callee'],
 						$started[$id]['start'],
 						(int) $logItem['Timestamp']
-					);
+					) );
 					
 					unset( $started[$id] );
 					break;
 				
 				case 'Failed':
-					$calls[] = new AvortedCall(
+					$calls->add( new AvortedCall(
 						$this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
 						$this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
 						(int) $logItem['Timestamp']
-					);
+					) );
 					break;
 				
 				default:
@@ -144,17 +145,4 @@ class RadiusLog {
 		return $calls;
 	}
 	
-	/** Filter log by accounts.
-	 * @param array $log Log as returned by #getMonthCalls.
-	 * @param array $accounts Accounts to select.
-	 */
-	public static function filter( $log, $accounts ) {
-		return array_filter(
-			$log,
-			function ( $call ) use ( $accounts ) {
-				return in_array( $call->getCaller(), $accounts ) || in_array( $call->getCallee(), $accounts );
-			}
-		);
-	}
-
 }

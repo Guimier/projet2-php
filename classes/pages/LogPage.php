@@ -23,10 +23,10 @@ abstract class LogPage extends Page {
 	}
 
 	/** Build a call log.
-	 * @param array $log Log to build.
+	 * @param CallList $log Log to build.
 	 * @param array $accounts Context account.
 	 */
-	protected function buildCallLog( array $log, array $accounts ) {
+	protected function buildCallLog( CallList $log, array $accounts ) {
 		$res = <<<HTML
 <table class="calllog">
 	<thead>
