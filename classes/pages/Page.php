@@ -169,5 +169,19 @@ HTML
 	protected static function buildYearSelect() {
 		return self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' );
 	}
+
+	/** Build a group selector.
+	 * @param array $groups Groups as defined in the configuration.
+	 */
+	protected function buildGroupSelect( array $groups ) {
+		$values = array_map(
+			function ( $group ) {
+				return $group['name'];
+			},
+			$groups
+		);
+
+		return self::buildSelect( $values, 'group', 'Groupe' );
+	}
 	
 }
