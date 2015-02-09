@@ -73,7 +73,7 @@ class InvoicePage extends Page {
 		}
 
 		if ( $remaining->getLength() > 0 ) {
-			# throw new Exception( 'Les appels ne correspondent pas tous aux filtres de prix.' );
+			throw new Exception( 'Les appels ne correspondent pas tous aux filtres de prix.' );
 		}
 
 		return $res;
