@@ -10,9 +10,10 @@ class IndexPage extends Page {
 
 	/** Get the main content. */
 	protected function getcontent() {
-		return AccountLogPage::buildAccessForm()
+		return InvoicePage::buildAccessForm( $this->config['groups'] )
+			. '<hr/>'
+			. AccountLogPage::buildAccessForm()
 			. GlobalLogPage::buildAccessForm()
-			. InvoicePage::buildAccessForm( $this->config['groups'] )
 			. GroupLogPage::buildAccessForm( $this->config['groups'] );
 	}
 
