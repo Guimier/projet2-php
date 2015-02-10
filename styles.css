@@ -12,7 +12,11 @@
 	}
 
 	hr {
-		clear: left
+		clear: left;
+		border: none;
+		height: 1px;
+		background: #aaaaaa;
+		margin: 0;
 	}
 
 /***** Tables *****/
@@ -63,10 +67,11 @@
 /***** Forms *****/
 	
 	.form {
+		background: #f0f0f0;
 		width: 20em;
 		border: 1px solid #aaaaaa;
 		padding: 0.5em;
-		margin: 0.3em;
+		margin: 1em 0.3em;
 		float: left;
 	}
 	.form h2 {
