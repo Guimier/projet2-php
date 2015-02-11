@@ -10,7 +10,7 @@ class AccountLogPage extends LogPage {
 			'Voir le journal d’un appareil',
 			'Voir',
 			self::buildInput( 'text', 'account', 'Compte' )
-				. self::buildYearSelect() . self::buildMonthSelect()
+				. self::buildYearMonthSelect()
 		);
 	}
 

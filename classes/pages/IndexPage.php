@@ -13,8 +13,8 @@ class IndexPage extends Page {
 		return InvoicePage::buildAccessForm( $this->config['groups'] )
 			. '<hr/>'
 			. AccountLogPage::buildAccessForm()
-			. GlobalLogPage::buildAccessForm()
-			. GroupLogPage::buildAccessForm( $this->config['groups'] );
+			. GroupLogPage::buildAccessForm( $this->config['groups'] )
+			. GlobalLogPage::buildAccessForm();
 	}
 
 }

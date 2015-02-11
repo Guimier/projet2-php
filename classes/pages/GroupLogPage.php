@@ -12,7 +12,7 @@ class GroupLogPage extends LogPage {
 			'Voir le journal d’un groupe',
 			'Voir',
 			self::buildGroupSelect( $config )
-				. self::buildYearSelect() . self::buildMonthSelect()
+				. self::buildYearMonthSelect()
 		);
 	}
 

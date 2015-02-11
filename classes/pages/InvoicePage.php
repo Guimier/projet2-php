@@ -12,7 +12,7 @@ class InvoicePage extends Page {
 			'Voir la facture d’un groupe',
 			'Voir',
 			self::buildGroupSelect( $groups )
-				. self::buildYearSelect() . self::buildMonthSelect()
+				. self::buildYearMonthSelect()
 		);
 	}
 
@@ -129,7 +129,7 @@ HTML
 		foreach ( $this->invoice as $group ) {
 			$local = $group['duration'] * $group['price'] / 3600;
 			$res .= '<tr>';
-			$res .= $this->buildTableCell( $group['label'] );
+			$res .= '<th scope="row">' . $this->escape( $group['label'] ) . '</th>';
 			$res .= $this->buildTableCell( $group['duration'] . ' s' );
 			$res .= $this->buildTableCell( $group['price'] );
 			$res .= $this->buildTableCell( $local . $this->config['currency'] );

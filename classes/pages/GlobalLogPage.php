@@ -14,7 +14,7 @@ class GlobalLogPage extends LogPage {
 			'global',
 			'Voir le journal global',
 			'Voir',
-			self::buildYearSelect() . self::buildMonthSelect()
+			self::buildYearMonthSelect()
 		);
 	}
 
