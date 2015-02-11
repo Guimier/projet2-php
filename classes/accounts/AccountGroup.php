@@ -1,11 +1,27 @@
 <?php
 
+/** A group of account from configuration. */
 class AccountGroup implements AccountContext {
 
+	/** Configuration.
+	 * @type array
+	 */
 	private $config;
+	
+	/** Group identifer.
+	 * @type string
+	 */
 	private $id;
+	
+	/** Group definition, extracted from the configuration.
+	 * @type array
+	 */
 	private $definition;
 	
+	/** Constructor.
+	 * @param array $config Configuration.
+	 * @param string $id Group identifier.
+	 */
 	public function __construct( array $config, $id ) {
 		$this->config = $config;
 		$this->id = $id;
@@ -25,14 +41,19 @@ class AccountGroup implements AccountContext {
 		
 	}
 
+	/** Know whether an account is in the group.
+	 * @param Account $acct The account to test.
+	 */
 	public function contains( Account $acct ) {
 		return $acct->getDomain() === $this->config['domain'] && in_array( $acct->getName(), $this->definition['accounts'] );
 	}
 
+	/** Get the group label. */
 	public function getDescription() {
 		return $this->definition['name'];
 	}
 
+	/** Get the group identifier. */
 	public function getId() {
 		return $this->id;
 	}

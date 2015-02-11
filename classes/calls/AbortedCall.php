@@ -1,7 +1,7 @@
 <?php
 
-/** An avorted call. */
-class AvortedCall extends Call {
+/** An aborted call. */
+class AbortedCall extends Call {
 
 	/** Constructor.
 	 * @param string $caller Identifer of the caller.

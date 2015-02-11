@@ -17,7 +17,7 @@ class InvoicePage extends Page {
 	}
 
 	/** Group for which the invoice will be displayed.
-	 * @param AccountContext
+	 * @type AccountContext
 	 */
 	private $context;
 

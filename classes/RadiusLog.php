@@ -124,7 +124,7 @@ class RadiusLog {
 					break;
 				
 				case 'Failed':
-					$calls->add( new AvortedCall(
+					$calls->add( new AbortedCall(
 						$this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
 						$this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
 						(int) $logItem['Timestamp']

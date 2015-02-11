@@ -54,10 +54,14 @@ class Account implements AccountContext {
 	
 /*----- AccountContext -----*/
 	
+	/** Know whether an account is the same as the current one.
+	 * @param Account $acct The account to test.
+	 */
 	public function contains( Account $acct ) {
 		return $acct === $this;
 	}
 	
+	/** Get the context description. */
 	public function getDescription() {
 		return $this->getName();
 	}

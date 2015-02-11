@@ -19,12 +19,13 @@ abstract class LogPage extends Page {
 	private $context;
 	
 	/** Log to display.
-	 * @type array
+	 * @type CallList
 	 */
 	private $log;
 
 	/** Build a log.
 	 * @param AccountContext $context Context
+	 * @param string $filterMethod Method from FilteredCallList used to create a filter.
 	 */
 	protected function prepareLog( AccountContext $context, $filterMethod ) {
 		$year   = (int) $this->getParam( 'year' );

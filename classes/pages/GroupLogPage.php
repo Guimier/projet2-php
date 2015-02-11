@@ -6,12 +6,12 @@ class GroupLogPage extends LogPage {
 	/** Build the form giving access to this page.
 	 * @param array $groups Groups as defined in the configuration.
 	 */
-	public static function buildAccessForm( array $config ) {
+	public static function buildAccessForm( array $groups ) {
 		return self::buildForm(
 			'group',
 			'Voir le journal d’un groupe',
 			'Voir',
-			self::buildGroupSelect( $config )
+			self::buildGroupSelect( $groups )
 				. self::buildYearMonthSelect()
 		);
 	}
