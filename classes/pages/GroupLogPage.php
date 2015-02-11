@@ -19,7 +19,7 @@ class GroupLogPage extends LogPage {
 	/* Build the content. */
 	protected function build() {
 		$this->prepareLog(
-			new GroupAccountContext( $this->config, $this->getParam( 'group' ) ),
+			new AccountGroup( $this->config, $this->getParam( 'group' ) ),
 			'filterByContext'
 		);
 	}

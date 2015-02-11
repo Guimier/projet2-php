@@ -13,7 +13,8 @@ function path( $relative ) {
 set_include_path( implode( ':', array(
 	path( 'classes' ),
 	path( 'classes/pages' ),
-	path( 'classes/calls' )
+	path( 'classes/calls' ),
+	path( 'classes/accounts' )
 ) ) );
 
 /** Class autoloader.

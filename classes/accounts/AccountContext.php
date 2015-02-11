@@ -1,8 +1,8 @@
 <?php
 
-abstract class AccountContext {
+interface AccountContext {
 
-	abstract public function contains( Account $acct );
-	abstract public function getDescription();
+	public function contains( Account $acct );
+	public function getDescription();
 
 }

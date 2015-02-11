@@ -21,7 +21,7 @@ class GlobalLogPage extends LogPage {
 	/* Build the content. */
 	protected function build() {
 		$this->prepareLog(
-			new DomainAccountContext( $this->config['domain'] ),
+			new AccountDomain( $this->config['domain'] ),
 			'filterByContext'
 		);
 	}

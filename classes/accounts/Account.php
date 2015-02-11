@@ -1,7 +1,7 @@
 <?php
 
 /** An account. */
-class Account {
+class Account implements AccountContext {
 	
 	/** Get an instance.
 	 * @param string $id Account identifiant.
@@ -14,21 +14,6 @@ class Account {
 		}
 		
 		return $accounts[$id];
-	}
-
-	/** Get an array of accounts from a group description.
-	 * @param array $group Group description.
-	 */
-	public function getGroup( $group, $domain ) {
-		$res = array();
-
-		if ( array_key_exists( 'accounts', $group ) ) {
-			foreach ( $group['accounts'] as $acctId ) {
-				$res[] = Account::get( "$acctId@$domain" );
-			}
-		}
-
-		return $res;
 	}
 	
 	/** Account identifiant. */
@@ -65,6 +50,16 @@ class Account {
 	/** Get the string representation of the account. */
 	public function __toString() {
 		return $this->id;
+	}
+	
+/*----- AccountContext -----*/
+	
+	public function contains( Account $acct ) {
+		return $acct === $this;
+	}
+	
+	public function getDescription() {
+		return $this->getName();
 	}
 	
 }

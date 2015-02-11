@@ -18,9 +18,6 @@ class AccountLogPage extends LogPage {
 	protected function build() {
 		$account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
 		
-		$this->prepareLog(
-			new SingleAccountContext( $account ),
-			'filterByContext'
-		);
+		$this->prepareLog( $account, 'filterByContext' );
 	}
 }

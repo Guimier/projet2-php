@@ -17,14 +17,28 @@ class InvoicePage extends Page {
 	}
 
 	/** Group for which the invoice will be displayed.
-	 * @param string
+	 * @param AccountContext
 	 */
-	private $group;
+	private $context;
 
 	/** Invoice.
 	 * @type array
 	 */
 	private $invoice;
+
+	/** Get the AccountContext described in the configuration.
+	 * @param string $rawContext Description of the context in the documenation.
+	 * @return AccountContext
+	 */
+	private function getContext( $rawContext ) {
+		if ( $rawContext === '*' ) {
+			return new Universe();
+		} elseif ( $rawContext[0] === '@' ) {
+			return new AccountDomain( substr( $rawContext, 1 ) );
+		} else {
+			return new AccountGroup( $this->config, $rawContext );
+		}
+	}
 
 	/** Apply the prices.
 	 * @param CallList $log Log to split.
@@ -34,42 +48,23 @@ class InvoicePage extends Page {
 		$remaining = $log;
 		$res = array();
 
-		foreach ( $prices as $priceDef ) {
-			$context = $priceDef[0];
-			$price = $priceDef[1];
+		$i = 0;
+		while ( $i < count( $prices ) && $remaining->getLength() > 0 ) {
+			$context = $this->getContext( $prices[$i][0] );
 
-			if ( $context[0] === '*' ) {
-				$res[] = array(
-					'label' => 'Autres',
-					'duration' => $remaining->getTotalDuration(),
-					'price' => $price
-				);
-				/* Nothing left */
-				$remaining = new CallList();
-				break;
-			} else {
-				if ( $context[0] !== '@' ) {
-					$label = $this->config['groups'][$context]['name'];
-					$context = Account::getGroup(
-						$this->config['groups'][$context],
-						$this->config['domain']
-					);
-				} else {
-					$label = substr( $context, 1 );
-				}
+			$partialLog = new FilteredCallList(
+				$remaining,
+				FilteredCallList::filterByCallee( $context )
+			);
+			$remaining = $partialLog->getFilteredOut();
 
-				$partialLog = new FilteredCallList(
-					$remaining,
-					FilteredCallList::filterByCallee( $context )
-				);
-				$remaining = $partialLog->getFilteredOut();
-
-				$res[] = array(
-					'label' => $label,
-					'duration' => $partialLog->getTotalDuration(),
-					'price' => $price
-				);
-			}
+			$res[] = array(
+				'label' => $context->getDescription(),
+				'duration' => $partialLog->getTotalDuration(),
+				'price' => $prices[$i][1]
+			);
+			
+			++$i;
 		}
 
 		if ( $remaining->getLength() > 0 ) {
@@ -81,25 +76,24 @@ class InvoicePage extends Page {
 
 	/** Build the content. */
 	protected function build() {
+		/* Get call log */
 		$year = (int) $this->getParam( 'year' );
 		$month = (int) $this->getParam( 'month' );
-		$this->group = $this->getParam( 'group' );
-
-		$accounts = Account::getGroup(
-			$this->config['groups'][$this->group],
-			$this->config['domain']
-		);
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
+		
+		/* Get group */
+		$this->context = new AccountGroup( $this->config, $this->getParam( 'group' ) );
+
 		$log = new FilteredCallList(
 			$fullLog,
-			FilteredCallList::filterByCaller( $accounts )
+			FilteredCallList::filterByCaller( $this->context  )
 		);
 		
 		$prices = $this->config['prices'];
-		if ( isset( $this->config['groups'][$this->group]['prices'] ) ) {
+		if ( isset( $this->config['groups'][$this->context->getId()]['prices'] ) ) {
 			$prices = array_merge(
-				$this->config['groups'][$this->group]['prices'],
+				$this->config['groups'][$this->context->getId()]['prices'],
 				$prices
 			);
 		}
@@ -109,7 +103,7 @@ class InvoicePage extends Page {
 
 	/** Get the page title. */
 	protected function getTitle() {
-		return 'Facture : ' . $this->config['groups'][$this->group]['name'];
+		return 'Facture - ' . $this->context->getDescription();
 	}
 
 	/** Get the main content. */
