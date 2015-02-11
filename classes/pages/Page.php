@@ -167,7 +167,14 @@ HTML
 	
 	/** Build a year selector. */
 	protected static function buildYearSelect() {
-		return self::buildSelect( array( 2015 => 2015 ), 'year', 'Année' );
+		$now = (int) date( 'Y' );
+		$years = array();
+		
+		for ( $i = $now; $i > $now - 5; --$i ) {
+			$years[$i] = $i;
+		}
+		
+		return self::buildSelect( $years, 'year', 'Année' );
 	}
 	
 	/** Build a year and month selector. */
