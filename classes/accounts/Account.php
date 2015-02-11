@@ -67,22 +67,4 @@ class Account {
 		return $this->id;
 	}
 	
-	/** Check if the account is in the given context.
-	 * @param mixed $context Context. May be:
-	 *        * an array of Account objects;
-	 *        * a domain in the form `@domain.name`;
-	 *        * a `*` string (all).
-	 */
-	public function inContext( $context ) {
-		if ( is_array( $context ) ) {
-			return in_array( $this, $context );
-		} elseif ( $context === '*' ) {
-			return true;
-		} elseif ( is_string( $context ) && $context[0] === '@' ) {
-			return $this->getDomain() === substr( $context, 1 );
-		} else {
-			throw new Exception( 'Contexte invalide' );
-		}
-	}
-	
 }

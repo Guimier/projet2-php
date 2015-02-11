@@ -13,20 +13,47 @@ abstract class LogPage extends Page {
 		'callee' => 'Appelé'
 	);
 
+	/** Context.
+	 * @type AccountContext
+	 */
+	private $context;
+	
+	/** Log to display.
+	 * @type array
+	 */
+	private $log;
+
+	/** Build a log.
+	 * @param AccountContext $context Context
+	 */
+	protected function prepareLog( AccountContext $context, $filterMethod ) {
+		$year   = (int) $this->getParam( 'year' );
+		$month  = (int) $this->getParam( 'month' );
+		
+		$rl = new RadiusLog( $this->config['logsdir'] );
+		$fullLog = $rl->getMonthCalls( $year, $month );
+		$this->log = new FilteredCallList(
+			$fullLog,
+			FilteredCallList::$filterMethod( $context )
+		);
+		
+		$this->context = $context;
+	}
+
 	/** Build HTML representation of an account.
 	 * @param Account $account The account to display.
-	 * @param mixed $context Context (highlighted), see Account::inContext.
+	 * @param AccountContext $context Context (highlighted).
 	 */
-	private function buildAccount( Account $account, $context ) {
+	private function buildAccount( Account $account, AccountContext $context ) {
 		$escaped = $this->escape( $account->getShortName( $this->config['domain'] ) );
-		return $account->inContext( $context ) ? "<strong>$escaped</strong>" : $escaped;
+		return $context->contains( $account ) ? "<strong>$escaped</strong>" : $escaped;
 	}
 
 	/** Build a call log.
 	 * @param CallList $log Log to build.
-	 * @param mixed $context Context, see Account::inContext.
+	 * @param AccountContext $context Context (highlighted).
 	 */
-	protected function buildCallLog( CallList $log, $context ) {
+	protected function buildCallLog( CallList $log, AccountContext $context ) {
 		$res = <<<HTML
 <table class="calllog">
 	<thead>
@@ -59,5 +86,15 @@ HTML
 </table>
 HTML
 		;
+	}
+
+	/* Get the page title. */
+	protected function getTitle() {
+		return 'Journal d’appel - ' . $this->context->getDescription();
+	}
+	
+	/** Get the main content. */
+	protected function getcontent() {
+		return $this->buildCallLog( $this->log, $this->context );
 	}
 }

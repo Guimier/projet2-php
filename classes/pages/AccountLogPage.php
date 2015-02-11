@@ -3,16 +3,6 @@
 /** Page showing the call log for an account. */
 class AccountLogPage extends LogPage {
 
-	/** Account for which the log is shown.
-	 * @type Account.
-	 */
-	private $account;
-	
-	/** Log to display.
-	 * @type array
-	 */
-	private $log;
-
 	/** Build the form giving access to this page. */
 	public static function buildAccessForm() {
 		return self::buildForm(
@@ -26,25 +16,11 @@ class AccountLogPage extends LogPage {
 
 	/* Build the content. */
 	protected function build() {
-		$this->account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
-		$year   = (int) $this->getParam( 'year' );
-		$month  = (int) $this->getParam( 'month' );
+		$account = Account::get( $this->getParam( 'account' ) . '@' . $this->config['domain'] );
 		
-		$rl = new RadiusLog( $this->config['logsdir'] );
-		$fullLog = $rl->getMonthCalls( $year, $month );
-		$this->log = new FilteredCallList(
-			$fullLog,
-			FilteredCallList::filterByContext( array( $this->account ) )
+		$this->prepareLog(
+			new SingleAccountContext( $account ),
+			'filterByContext'
 		);
-	}
-
-	/* Get the page title. */
-	protected function getTitle() {
-		return 'Journal d’appel de ' . $this->account->getShortName( $this->config['domain'] );
-	}
-
-	/** Get the main content. */
-	protected function getcontent() {
-		return $this->buildCallLog( $this->log, array( $this->account ) );
 	}
 }

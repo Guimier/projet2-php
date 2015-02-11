@@ -17,8 +17,8 @@ class EffectiveCall extends Call {
 	 * @param mixed $context Context, see Account::inContext.
 	 */
 	public function getStatus( $context ) {
-		$callerInside = $this->getCaller()->inContext( $context );
-		$calleeInside = $this->getCallee()->inContext( $context );
+		$callerInside = $context->contains( $this->getCaller() );
+		$calleeInside = $context->contains( $this->getCallee() );
 		
 		if ( $callerInside ) {
 			if ( $calleeInside ) {

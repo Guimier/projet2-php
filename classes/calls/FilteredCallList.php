@@ -5,32 +5,32 @@ class FilteredCallList extends CallList {
 /*----- Predefined filters -----*/
 
 	/** Filter by accounts.
-	 * @param mixed $context Context, see Account::inContext.
+	 * @param AccountContext $context Context to filter on.
 	 * @return callable
 	 */
-	public static function filterByContext( $context ) {
+	public static function filterByContext( AccountContext $context ) {
 		return function ( Call $call ) use ( $context ) {
-			return $call->getCaller()->inContext( $context ) || $call->getCallee()->inContext( $context );
+			return $context->contains( $call->getCaller() ) || $context->contains( $call->getCallee() );
 		};
 	}
 
 	/** Filter by caller account.
-	 * @param mixed $context Context, see Account::inContext.
+	 * @param AccountContext $context Context to filter on.
 	 * @return callable
 	 */
-	public static function filterByCaller( $context ) {
+	public static function filterByCaller( AccountContext $context ) {
 		return function ( Call $call ) use ( $context ) {
-			return $call->getCaller()->inContext( $context );
+			return $context->contains( $call->getCaller() );
 		};
 	}
 
 	/** Filter by callee account.
-	 * @param mixed $context Context, see Account::inContext.
+	 * @param AccountContext $context Context to filter on.
 	 * @return callable
 	 */
-	public static function filterByCallee( $context ) {
+	public static function filterByCallee( AccountContext $context ) {
 		return function ( Call $call ) use ( $context ) {
-			return $call->getCallee()->inContext( $context );
+			return $context->contains( $call->getCallee() );
 		};
 	}
 	

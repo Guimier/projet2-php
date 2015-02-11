@@ -20,20 +20,9 @@ class GlobalLogPage extends LogPage {
 
 	/* Build the content. */
 	protected function build() {
-		$year   = (int) $this->getParam( 'year' );
-		$month  = (int) $this->getParam( 'month' );
-		
-		$rl = new RadiusLog( $this->config['logsdir'] );
-		$this->log = $rl->getMonthCalls( $year, $month );
-	}
-
-	/* Get the page title. */
-	protected function getTitle() {
-		return 'Journal d’appel global';
-	}
-
-	/** Get the main content. */
-	protected function getcontent() {
-		return $this->buildCallLog( $this->log, '@' . $this->config['domain'] );
+		$this->prepareLog(
+			new DomainAccountContext( $this->config['domain'] ),
+			'filterByContext'
+		);
 	}
 }
