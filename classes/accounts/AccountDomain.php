@@ -24,7 +24,7 @@ class AccountDomain implements AccountContext {
 	
 	/** Get the domain description. */
 	public function getDescription() {
-		return $this->name;
+		return 'Domaine ' . $this->name;
 	}
 
 }

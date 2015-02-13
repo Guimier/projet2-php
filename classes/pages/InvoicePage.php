@@ -43,26 +43,34 @@ class InvoicePage extends Page {
 	/** Apply the prices.
 	 * @param CallList $log Log to split.
 	 * @param array $prices Prices definition as in configuration.
+	 * @todo Always apply rules in the order account > domain > universe
 	 */
 	private function applyPrices( CallList $log, array $prices ) {
 		$remaining = $log;
 		$res = array();
+		
+		$alreadyTestedContexts = array();
 
 		$i = 0;
-		while ( $i < count( $prices ) && $remaining->getLength() > 0 ) {
-			$context = $this->getContext( $prices[$i][0] );
+		while ( $i < count( $prices ) ) {
+			$rawContext = $prices[$i][0];
+		
+			if ( ! in_array( $rawContext, $alreadyTestedContexts ) ) {
+				$alreadyTestedContexts[] = $rawContext;
+				$context = $this->getContext( $rawContext );
 
-			$partialLog = new FilteredCallList(
-				$remaining,
-				FilteredCallList::filterByCallee( $context )
-			);
-			$remaining = $partialLog->getFilteredOut();
+				$partialLog = new FilteredCallList(
+					$remaining,
+					FilteredCallList::filterByCallee( $context )
+				);
+				$remaining = $partialLog->getFilteredOut();
 
-			$res[] = array(
-				'label' => $context->getDescription(),
-				'duration' => $partialLog->getTotalDuration(),
-				'price' => $prices[$i][1]
-			);
+				$res[] = array(
+					'label' => $context->getDescription(),
+					'duration' => $partialLog->getTotalDuration(),
+					'price' => $prices[$i][1]
+				);
+			}
 			
 			++$i;
 		}
