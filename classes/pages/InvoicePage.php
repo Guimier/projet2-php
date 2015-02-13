@@ -136,10 +136,12 @@ HTML
 
 		foreach ( $this->invoice as $group ) {
 			$local = $group['duration'] * $group['price'] / 3600;
+			$local = number_format( $local, 2 );	
 			$res .= '<tr>';
 			$res .= '<th scope="row">' . $this->escape( $group['label'] ) . '</th>';
 			$res .= $this->buildTableCell( $group['duration'] . ' s' );
-			$res .= $this->buildTableCell( $group['price'] );
+			$res .= $this->buildTableCell( number_format($group['price'], 2 ));
+	
 			$res .= $this->buildTableCell( $local . ' ' . $this->config['currency'] );
 			$res .= '</tr>';
 
