@@ -132,7 +132,7 @@ HTML
 			$res .= '<th scope="row">' . $this->escape( $group['label'] ) . '</th>';
 			$res .= $this->buildTableCell( $group['duration'] . ' s' );
 			$res .= $this->buildTableCell( $group['price'] );
-			$res .= $this->buildTableCell( $local . $this->config['currency'] );
+			$res .= $this->buildTableCell( $local . ' ' . $this->config['currency'] );
 			$res .= '</tr>';
 
 			$total += $local;
@@ -147,7 +147,7 @@ HTML
 			<td class="hiddencell"></td>
 			<td class="hiddencell"></td>
 			<td class="hiddencell"></td>
-			<td>$total$currency</td>
+			<td>$total $currency</td>
 		</tr>
 	</tfoot>
 </table>

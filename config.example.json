@@ -1,5 +1,5 @@
 {
-	"currency": "\u00A0€",
+	"currency": "EUR",
 	"logsdir": "/var/www/logs/examples",
 	"domain": "ikone20.rcisima.isima.fr",
 	"dateformat": "Le %e à %k h %M",
