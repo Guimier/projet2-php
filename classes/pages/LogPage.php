@@ -55,6 +55,21 @@ abstract class LogPage extends Page {
 	 * @param AccountContext $context Context (highlighted).
 	 */
 	protected function buildCallLog( CallList $log, AccountContext $context ) {
+		if ( $log->getLength() > 0 ) {
+			return $this->buildNonEmptyCallLog( $log, $context );
+		} else {
+			return '<p>Aucun appel durant la période sélectionnée.</p>';
+		}
+	}
+
+	/** Build a call log.
+	 * @param CallList $log Log to build.
+	 * @param AccountContext $context Context (highlighted).
+	 */
+	private function buildNonEmptyCallLog(
+		CallList $log,
+		AccountContext $context
+	) {
 		$res = <<<HTML
 <table class="calllog">
 	<thead>
