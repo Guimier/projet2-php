@@ -55,6 +55,7 @@
 
 	/*** Call logs ***/
 		.calllog tbody tr > :nth-child(3) { text-align: center; }
+		.calllog tbody tr > :nth-child(6) { text-align: right; }
 		tr.avorted > :first-child { color: #cc0000; }
 		tr.internal > :first-child { color: #0000aa; }
 		tr.caller > :first-child { color: #008800; }

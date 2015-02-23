@@ -22,6 +22,44 @@ abstract class LogPage extends Page {
 	 * @type CallList
 	 */
 	private $log;
+	
+	/** Get the PriceFilters object for an caller account.
+	 * May be overriden for efficiency.
+	 * @param Account $acct
+	 */
+	protected function getPriceFilters( Account $acct ) {
+		static $groupsFilters = array();
+		static $acctsFilters = array();
+		
+		if ( $acct->getDomain() !== $this->config['domain'] ) {
+			throw new Exception( "Pas de filtre de prix pour le compte externe $acct." );
+		} elseif ( ! array_key_exists( $acct->getName(), $acctsFilters ) ) {
+			// Group search
+			$i = 0;
+			$groups = array_keys( $this->config['groups'] );
+			while (
+				$i < count( $groups )
+				&& ! in_array(
+					$acct->getName(),
+					$this->config['groups'][$group]['accounts']
+				)
+			) {
+				++$i;
+			}
+			
+			if ( $i < count( $groups ) ) {
+				$group = $groups[$i];
+				if ( ! array_key_exists( $group, $groupsFilters ) ) {
+					$groupsFilters[$group] = new PriceFilters( $this->config, $group );
+				}
+				$acctsFilters[$acct->getName()] = $groupsFilters[$group];
+			} else {
+				$acctsFilters[$acct->getName()] = new PriceFilters( $this->config, null );
+			}
+		}
+		
+		return $acctsFilters[$acct->getName()];
+	}
 
 	/** Build a log.
 	 * @param AccountContext $context Context
@@ -64,6 +102,7 @@ abstract class LogPage extends Page {
 			<th scope="col">Durée</th>
 			<th scope="col">Appelant</th>
 			<th scope="col">Appelé</th>
+			<th scope="col">Coût</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -79,6 +118,15 @@ HTML
 			$res .= $this->buildTableCell( $call->getDuration() . ' s' );
 			$res .= '<td>' . $this->buildAccount( $call->getCaller(), $context ) . '</td>';
 			$res .= '<td>' . $this->buildAccount( $call->getCallee(), $context ) . '</td>';
+			
+			if ( $status === 'caller' || $status === 'internal' ) {
+				$filter = $this->getPriceFilters( $call->getCaller() );
+				$filtered = $filter->filterAccount( $call->getCallee() );
+				$price = $call->getDuration() * $filtered['price'] / 3600;
+				$res .= $this->buildTableCell( number_format( $price, 2 ) . ' ' . $this->config['currency'] );
+			} else {
+				$res .= '<td>—</td>';
+			}
 			$res .= "</tr>";
 		}
 		
