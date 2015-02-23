@@ -21,7 +21,6 @@ class PriceFilters {
 					$config['groups'][$groups[$i]]['accounts']
 				)
 			) {
-				var_dump( $config['groups'][$groups[$i]]['accounts'], $acct->getName() );
 				++$i;
 			}
 			
