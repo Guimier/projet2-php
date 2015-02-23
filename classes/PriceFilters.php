@@ -2,6 +2,37 @@
 
 class PriceFilters {
 
+	/** Get the PriceFilters object for an caller account.
+	 * @param Account $acct
+	 */
+	public static function getForAccount( array $config, Account $acct ) {
+		static $acctsFilters = array();
+		
+		if ( $acct->getDomain() !== $config['domain'] ) {
+			throw new Exception( "Pas de filtre de prix pour le compte externe $acct." );
+		} elseif ( ! array_key_exists( $acct->getName(), $acctsFilters ) ) {
+			// Group search
+			$i = 0;
+			$groups = array_keys( $config['groups'] );
+			while (
+				$i < count( $groups )
+				&& ! in_array(
+					$acct->getName(),
+					$config['groups'][$groups[$i]]['accounts']
+				)
+			) {
+				var_dump( $config['groups'][$groups[$i]]['accounts'], $acct->getName() );
+				++$i;
+			}
+			
+			$acctsFilters[$acct->getName()] = new PriceFilters( $config, $i < count( $groups ) ? $groups[$i] : null );
+		}
+		
+		return $acctsFilters[$acct->getName()];
+	}
+
+/*----- Instances -----*/
+
 	private $alreadyAdded = array();
 
 	private $filters = array();

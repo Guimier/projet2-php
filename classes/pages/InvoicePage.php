@@ -1,22 +1,9 @@
 <?php
 
 /** Page showing the invoice for a group. */
-class InvoicePage extends Page {
+abstract class InvoicePage extends Page {
 
-	/** Build the form giving access to this page.
-	 * @param array $groups Groups as defined in the configuration.
-	 */
-	public static function buildAccessForm( array $groups ) {
-		return self::buildForm(
-			'invoice',
-			'Voir la facture d’un groupe',
-			'Voir',
-			self::buildGroupSelect( $groups )
-				. self::buildYearMonthSelect()
-		);
-	}
-
-	/** Group for which the invoice will be displayed.
+	/** Context for which the invoice will be displayed.
 	 * @type AccountContext
 	 */
 	private $context;
@@ -26,6 +13,9 @@ class InvoicePage extends Page {
 	 */
 	private $invoice;
 
+	abstract protected function getPriceFilter();
+	abstract protected function getContext();
+
 	/** Build the content. */
 	protected function build() {
 		/* Get call log */
@@ -34,19 +24,14 @@ class InvoicePage extends Page {
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
 		
-		$this->group = $this->getParam( 'group' );
-		
-		/* Get group */
-		$this->context = new AccountGroup( $this->config, $this->group );
+		$this->context = $this->getContext();
 
 		$log = new FilteredCallList(
 			$fullLog,
 			FilteredCallList::filterByCaller( $this->context  )
 		);
-		
-		$filters = new PriceFilters( $this->config, $this->context->getId() );
 
-		$this->invoice = $filters->filterByCallee( $log );
+		$this->invoice = $this->getPriceFilter()->filterByCallee( $log );
 	}
 
 	/** Get the page title. */
@@ -57,8 +42,7 @@ class InvoicePage extends Page {
 	/** Get the main content. */
 	protected function getcontent() {
 		$currency = $this->escape( $this->config['currency'] );
-		$res = '<!-- Groupe `' . $this->escape( $this->group ) . '` -->';
-		$res .= <<<HTML
+		$res = <<<HTML
 <table class="invoice">
 	<thead>
 		<tr>

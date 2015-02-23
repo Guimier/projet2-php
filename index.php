@@ -41,7 +41,8 @@ $pageClasses = array(
 	'log' => 'AccountLogPage',
 	'global' => 'GlobalLogPage',
 	'group' => 'GroupLogPage',
-	'invoice' => 'InvoicePage'
+	'invoice' => 'GroupInvoicePage',
+	'acctinvoice' => 'AccountInvoicePage'
 );
 
 if ( array_key_exists( 'page', $_GET ) && array_key_exists( $_GET['page'], $pageClasses ) ) {
