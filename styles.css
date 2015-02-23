@@ -72,7 +72,7 @@
 		width: 20em;
 		border: 1px solid #aaaaaa;
 		padding: 0.5em;
-		margin: 1em 0.3em;
+		margin: 0.5em 0.3em;
 		float: left;
 	}
 	
@@ -81,6 +81,7 @@
 		.form {
 			width: 100%;
 			box-sizing: border-box;
+			margin: 0.5em 0;
 		}
 	}
 	
