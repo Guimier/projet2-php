@@ -26,62 +26,6 @@ class InvoicePage extends Page {
 	 */
 	private $invoice;
 
-	/** Get the AccountContext described in the configuration.
-	 * @param string $rawContext Description of the context in the documenation.
-	 * @return AccountContext
-	 */
-	private function getContext( $rawContext ) {
-		if ( $rawContext === '*' ) {
-			return new Universe();
-		} elseif ( $rawContext[0] === '@' ) {
-			return new AccountDomain( substr( $rawContext, 1 ) );
-		} else {
-			return new AccountGroup( $this->config, $rawContext );
-		}
-	}
-
-	/** Apply the prices.
-	 * @param CallList $log Log to split.
-	 * @param array $prices Prices definition as in configuration.
-	 * @todo Always apply rules in the order account > domain > universe
-	 */
-	private function applyPrices( CallList $log, array $prices ) {
-		$remaining = $log;
-		$res = array();
-		
-		$alreadyTestedContexts = array();
-
-		$i = 0;
-		while ( $i < count( $prices ) ) {
-			$rawContext = $prices[$i][0];
-		
-			if ( ! in_array( $rawContext, $alreadyTestedContexts ) ) {
-				$alreadyTestedContexts[] = $rawContext;
-				$context = $this->getContext( $rawContext );
-
-				$partialLog = new FilteredCallList(
-					$remaining,
-					FilteredCallList::filterByCallee( $context )
-				);
-				$remaining = $partialLog->getFilteredOut();
-
-				$res[] = array(
-					'label' => $context->getDescription(),
-					'duration' => $partialLog->getTotalDuration(),
-					'price' => $prices[$i][1]
-				);
-			}
-			
-			++$i;
-		}
-
-		if ( $remaining->getLength() > 0 ) {
-			throw new Exception( 'Les appels ne correspondent pas tous aux filtres de prix.' );
-		}
-
-		return $res;
-	}
-
 	/** Build the content. */
 	protected function build() {
 		/* Get call log */
@@ -90,23 +34,19 @@ class InvoicePage extends Page {
 		$rl = new RadiusLog( $this->config['logsdir'] );
 		$fullLog = $rl->getMonthCalls( $year, $month );
 		
+		$this->group = $this->getParam( 'group' );
+		
 		/* Get group */
-		$this->context = new AccountGroup( $this->config, $this->getParam( 'group' ) );
+		$this->context = new AccountGroup( $this->config, $this->group );
 
 		$log = new FilteredCallList(
 			$fullLog,
 			FilteredCallList::filterByCaller( $this->context  )
 		);
 		
-		$prices = $this->config['prices'];
-		if ( isset( $this->config['groups'][$this->context->getId()]['prices'] ) ) {
-			$prices = array_merge(
-				$this->config['groups'][$this->context->getId()]['prices'],
-				$prices
-			);
-		}
+		$filters = new PriceFilters( $this->config, $this->context->getId() );
 
-		$this->invoice = $this->applyPrices( $log, $prices );
+		$this->invoice = $filters->filterByCallee( $log );
 	}
 
 	/** Get the page title. */
@@ -135,12 +75,13 @@ HTML
 		$total = 0;
 
 		foreach ( $this->invoice as $group ) {
-			$local = $group['duration'] * $group['price'] / 3600;
+			$duration = $group['list']->getTotalDuration();
+			$local = $duration * $group['price'] / 3600;
 			$local = number_format( $local, 2 );	
 			$res .= '<tr>';
 			$res .= '<th scope="row">' . $this->escape( $group['label'] ) . '</th>';
-			$res .= $this->buildTableCell( $group['duration'] . ' s' );
-			$res .= $this->buildTableCell( number_format($group['price'], 2 ));
+			$res .= $this->buildTableCell( $duration . ' s' );
+			$res .= $this->buildTableCell( number_format( $group['price'], 2 ) );
 	
 			$res .= $this->buildTableCell( $local . ' ' . $this->config['currency'] );
 			$res .= '</tr>';
