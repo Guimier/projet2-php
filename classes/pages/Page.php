@@ -100,12 +100,21 @@ abstract class Page {
 	<h2>$title</h2>
 	<form action="index.php" method="GET">
 		<input type="hidden" name="page" value="$page" />
-		$inputs
-		<input type="submit" value="$submit" />
+$inputs		<input type="submit" value="$submit" />
 	</form>
 </div>
 HTML
 		;
+	}
+
+	/** Get an unique input idenifier.
+	 * @param string $name Input name (for readability).
+	 * @return string
+	 */
+	private static function getInputId( $name ) {
+		static $i = 0;
+		++$i;
+		return "input-$i-$name";
 	}
 
 	/** Build an input with a label.
@@ -114,9 +123,11 @@ HTML
 	 * @param string $label Label for the input.
 	 */
 	protected static function buildInput( $type, $name, $label ) {
+		$id = self::getInputId( $name );
 		return <<<HTML
-<label for="$name">$label</label>
-<input type="$type" name="$name" id="$name" />
+<label for="$id">$label</label>
+<input type="$type" name="$name" id="$id" />
+
 HTML
 		;
 	}
@@ -128,12 +139,13 @@ HTML
 	 * @param string $label Label for the select.
 	 */
 	protected static function buildSelect( array $values, $name, $label, $selected ) {
+		$id = self::getInputId( $name );
 		$options = '';
 		
-		foreach ( $values as $id => $display ) {
-			$options .= "<option value=\"$id\"";
+		foreach ( $values as $value => $display ) {
+			$options .= "\n\t<option value=\"$value\"";
 
-			if ( $id == $selected ) {
+			if ( $value == $selected ) {
 				$options .= ' selected';
 			}
 
@@ -141,10 +153,10 @@ HTML
 		}
 		
 		return <<<HTML
-<label for="$name">$label</label>
-<select name="$name" id="$name">
-$options
+<label for="$id">$label</label>
+<select name="$name" id="$id">$options
 </select>
+
 HTML
 		;
 	}
