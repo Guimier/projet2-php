@@ -75,6 +75,15 @@
 		margin: 1em 0.3em;
 		float: left;
 	}
+	
+	
+	@media only screen and (max-width:20em) {
+		.form {
+			width: 100%;
+			box-sizing: border-box;
+		}
+	}
+	
 	.form h2 {
 		font-size: 1em;
 		text-align: center;
