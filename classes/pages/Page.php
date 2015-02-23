@@ -127,11 +127,17 @@ HTML
 	 * @param string $name Select name (use for the identifiant too).
 	 * @param string $label Label for the select.
 	 */
-	protected static function buildSelect( array $values, $name, $label ) {
+	protected static function buildSelect( array $values, $name, $label, $selected ) {
 		$options = '';
 		
 		foreach ( $values as $id => $display ) {
-			$options .= "<option value=\"$id\">$display</option>";
+			$options .= "<option value=\"$id\"";
+
+			if ( $id == $selected ) {
+				$options .= ' selected';
+			}
+
+			$options .= ">$display</option>";
 		}
 		
 		return <<<HTML
@@ -161,7 +167,8 @@ HTML
 				12 => 'Décembre'
 			),
 			'month',
-			'Mois'
+			'Mois',
+			date( 'n' )
 		);
 	}
 	
