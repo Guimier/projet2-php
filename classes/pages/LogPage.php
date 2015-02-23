@@ -24,10 +24,9 @@ abstract class LogPage extends Page {
 	private $log;
 	
 	/** Get the PriceFilters object for an caller account.
-	 * May be overriden for efficiency.
 	 * @param Account $acct
 	 */
-	protected function getPriceFilters( Account $acct ) {
+	private function getPriceFilters( Account $acct ) {
 		static $groupsFilters = array();
 		static $acctsFilters = array();
 		
