@@ -69,7 +69,24 @@ abstract class Page {
 			$this->exceptionPage->display();
 		}
 	}
-	
+
+	protected function formatDuration( $duration ) {
+		$seconds = $duration % 60;
+		$minutes = floor( $duration / 60 ) % 60;
+		$hours = floor( $duration / 3600 );
+		
+		$res = "$seconds s";
+		
+		if ( $hours || $minutes ) {
+			$res = "$minutes min $res";
+		}
+		if ( $hours ) {
+			$res = "$hours h $res";
+		}
+		
+		return $res;
+	}
+
 /*----- HTML building -----*/
 
 	/** Escape a string for inclusion in HTML.

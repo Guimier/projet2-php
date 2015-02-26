@@ -62,23 +62,6 @@ abstract class LogPage extends Page {
 		}
 	}
 
-	private function formatDuration( $duration ) {
-		$seconds = $duration % 60;
-		$minutes = floor( $duration / 60 ) % 60;
-		$hours = floor( $duration / 3600 );
-		
-		$res = "$seconds s";
-		
-		if ( $hours || $minutes ) {
-			$res = "$minutes min $res";
-		}
-		if ( $hours ) {
-			$res = "$hours h $res";
-		}
-		
-		return $res;
-	}
-
 	/** Build a call log.
 	 * @param CallList $log Log to build.
 	 * @param AccountContext $context Context (highlighted).

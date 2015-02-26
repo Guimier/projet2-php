@@ -64,7 +64,7 @@ HTML
 			$local = number_format( $local, 2 );	
 			$res .= '<tr>';
 			$res .= '<th scope="row">' . $this->escape( $group['label'] ) . '</th>';
-			$res .= $this->buildTableCell( $duration . ' s' );
+			$res .= $this->buildTableCell( $this->formatDuration( $duration ) );
 			$res .= $this->buildTableCell( number_format( $group['price'], 2 ) );
 	
 			$res .= $this->buildTableCell( $local );
