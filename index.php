@@ -33,6 +33,10 @@ if ( is_null( $config ) ) {
 	require path( 'html/configerror.html' );
 }
 
+if ( array_key_exists( 'domainaliases', $config ) && is_array( $config['domainaliases'] ) ) {
+	Account::setDomainAliases( $config['domain'], $config['domainaliases'] );
+}
+
 /*----- Output -----*/
 
 $pageClass = 'IndexPage';
