@@ -152,7 +152,7 @@ class RadiusLog {
 		$started = array_filter( $started );
 		
 		if ( count( $started ) > 0 ) {
-			throw new Exception( 'Unstopped call(s) #' . implode( ', #', array_keys( $started ) ) );
+			throw new Exception( 'Appel(s) non terminé(s) #' . implode( ', #', array_keys( $started ) ) );
 		}
 		
 		return $calls;

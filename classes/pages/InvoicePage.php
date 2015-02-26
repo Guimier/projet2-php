@@ -48,8 +48,8 @@ abstract class InvoicePage extends Page {
 		<tr>
 			<th scope="col">Destination</th>
 			<th scope="col">Temps</th>
-			<th scope="col">Tarif ($currency/heure)</th>
-			<th scope="col">Prix</th>
+			<th scope="col">Tarif<br/><span class="unit">($currency/heure)</span></th>
+			<th scope="col">Prix<br/><span class="unit">($currency)</span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -67,13 +67,11 @@ HTML
 			$res .= $this->buildTableCell( $duration . ' s' );
 			$res .= $this->buildTableCell( number_format( $group['price'], 2 ) );
 	
-			$res .= $this->buildTableCell( $local . ' ' . $this->config['currency'] );
+			$res .= $this->buildTableCell( $local );
 			$res .= '</tr>';
 
 			$total += $local;
 		}
-
-		$currency = $this->escape( $this->config['currency'] );
 
 		$res .= <<<HTML
 	</tbody>
@@ -82,7 +80,7 @@ HTML
 			<td class="hiddencell"></td>
 			<td class="hiddencell"></td>
 			<td class="hiddencell"></td>
-			<td>$total $currency</td>
+			<td>$total</td>
 		</tr>
 	</tfoot>
 </table>
