@@ -7,10 +7,29 @@ class CallList implements Iterator {
 	 */
 	private $calls = array();
 
+	/** Is the list sorted?
+	 * @type boolean
+	 */
+	private $sorted = trues;
+
+	/** Sort calls by start date. */
+	private function sort() {
+		if ( ! $this->sorted ) {
+			usort(
+				$this->calls,
+				function ( Call $c1, Call $c2 ) {
+					return $c1->getStartTime() - $c2->getStartTime();
+				}
+			);
+			$this->sorted = true;
+		}
+	}
+
 	/** Add a call to the list
 	 * @param Call $call
 	 */
 	public function add( Call $call ) {
+		$this->sorted = false;
 		$this->calls[] = $call;
 	}
 
@@ -39,6 +58,7 @@ class CallList implements Iterator {
 
 	/** Return the current call. */
 	public function current() {
+		$this->sort();
 		return $this->calls[$this->i];
 	}
 
