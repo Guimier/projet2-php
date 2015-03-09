@@ -3,6 +3,17 @@
 /** An account. */
 class Account implements AccountContext {
 	
+	private static $aliases = array();
+	
+	public static function setDomainAliases( $domain, $aliases ) {
+		foreach ( $aliases as $alias ) {
+			if ( array_key_exists( $alias, self::$aliases ) ) {
+				throw new Exception( "Tentative de réattribution du nom de domaine alternatif « $alias »" );
+			}
+			self::$aliases[$alias] = $domain;
+		}
+	}
+	
 	/** Get an instance.
 	 * @param string $id Account identifiant.
 	 */
@@ -16,40 +27,58 @@ class Account implements AccountContext {
 		return $accounts[$id];
 	}
 	
-	/** Account identifiant. */
-	private $id;
+	/** Account name. */
+	private $name;
+	
+	/** Account domain. */
+	private $domain;
 	
 	/** Constructor.
 	 * @param string $id Account identifiant.
 	 */
 	private function __construct( $id ) {
-		$this->id = $id;
+		$exploded = explode( '@', $id );
+		if ( count( $exploded ) !== 2 ) {
+			throw new Exception( "Identifiant de compte « $id » mal formé" );
+		}
+		
+		$this->name = $exploded[0];
+		
+		$this->domain = $exploded[1];
+		//var_dump( $this->domain );
+		if ( array_key_exists( $this->domain, self::$aliases ) ) {
+			$this->domain = self::$aliases[$this->domain];
+		}
+		//var_dump( $this->domain );
 	}
 	
 	/** Get the domain part of the account. */
 	public function getDomain() {
-		$exploded = explode( '@', $this->id );
-		return $exploded[1];
+		return $this->domain;
 	}
 	
 	/** Get the name of the account. */
 	public function getName() {
-		$exploded = explode( '@', $this->id );
-		return $exploded[0];
+		return $this->name;
+	}
+	
+	/** Get the identifiant of the account. */
+	public function getId() {
+		return $this->name . '@' . $this->domain;
 	}
 	
 	/** Get a short name of the account in a domain.
 	 * @param string $domain Domain.
 	 */
 	public function getShortName( $domain ) {
-		return$this->getDomain() === $domain
-			? $this->getName()
-			: $this->id;
+		return $this->domain === $domain
+			? $this->name
+			: $this->getId();
 	}
 	
 	/** Get the string representation of the account. */
 	public function __toString() {
-		return $this->id;
+		return $this->getId();
 	}
 	
 /*----- AccountContext -----*/

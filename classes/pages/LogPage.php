@@ -70,6 +70,8 @@ abstract class LogPage extends Page {
 		CallList $log,
 		AccountContext $context
 	) {
+		$currency = $this->escape( $this->config['currency'] );
+		
 		$res = <<<HTML
 <table class="calllog">
 	<thead>
@@ -79,7 +81,7 @@ abstract class LogPage extends Page {
 			<th scope="col">Durée</th>
 			<th scope="col">Appelant</th>
 			<th scope="col">Appelé</th>
-			<th scope="col">Coût</th>
+			<th scope="col">Coût<br/><span class="unit">($currency)</span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -92,7 +94,7 @@ HTML
 			$res .= "<tr class=\"$status\">";
 			$res .= $this->buildTableCell( $this->statuses[$status] );
 			$res .= $this->buildTableCell( strftime( $this->config['dateformat'], $call->getStartTime() ) );
-			$res .= $this->buildTableCell( $call->getDuration() . ' s' );
+			$res .= $this->buildTableCell( $this->formatDuration( $call->getDuration() ) );
 			$res .= '<td>' . $this->buildAccount( $call->getCaller(), $context ) . '</td>';
 			$res .= '<td>' . $this->buildAccount( $call->getCallee(), $context ) . '</td>';
 			
@@ -100,7 +102,7 @@ HTML
 				$filter = PriceFilters::getForAccount( $this->config, $call->getCaller() );
 				$filtered = $filter->filterAccount( $call->getCallee() );
 				$price = $call->getDuration() * $filtered['price'] / 3600;
-				$res .= $this->buildTableCell( number_format( $price, 2 ) . ' ' . $this->config['currency'] );
+				$res .= $this->buildTableCell( number_format( $price, 2 ) );
 			} else {
 				$res .= '<td>—</td>';
 			}

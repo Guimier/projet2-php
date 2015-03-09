@@ -75,15 +75,20 @@ class RadiusLog {
 		return $res;
 	}
 
-	/** Remove the SIP prefix from an account identifiant.
-	 * @param string $userId The account string.
+	/** Sanitize the account id from the log to match the pattern $name@$domain.
+	 * @param string $logId The account string.
 	 */
-	private function removeSIPPrefix( $userId ) {
-		if ( substr( $userId, 0, 4 ) === 'sip:' ) {
-			$userId = substr( $userId, 4 );
-		}
+	private function sanitizeAccountId( $logId ) {
+		$id = $logId;
 		
-		return $userId;
+		// Remove `sip:` prefix
+		if ( substr( $id, 0, 4 ) === 'sip:' ) {
+			$id = substr( $id, 4 );
+		}
+		// Remove comments after `;`
+		$id = strtok( $id, ';' );
+		
+		return $id;
 	}
 
 	/** Get the list of calls for a month of activity.
@@ -102,8 +107,8 @@ class RadiusLog {
 			switch ( $logItem['Acct-Status-Type'] ) {
 				case 'Start':
 					$started[$id] = array(
-						'caller' => $this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
-						'callee' => $this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
+						'caller' => $this->sanitizeAccountId( $logItem['Calling-Station-Id'] ),
+						'callee' => $this->sanitizeAccountId( $logItem['Called-Station-Id'] ),
 						'start' => (int) $logItem['Timestamp']
 					);
 					break;
@@ -111,6 +116,10 @@ class RadiusLog {
 				case 'Stop':
 					if ( ! array_key_exists( $id, $started ) ) {
 						throw new Exception( 'Unstarted call #' . $id );
+					}
+					
+					if ( $started[$id] === false ) {
+						break;
 					}
 					
 					$calls->add( new EffectiveCall(
@@ -125,10 +134,11 @@ class RadiusLog {
 				
 				case 'Failed':
 					$calls->add( new AbortedCall(
-						$this->removeSIPPrefix( $logItem['Calling-Station-Id'] ),
-						$this->removeSIPPrefix( $logItem['Called-Station-Id'] ),
+						$this->sanitizeAccountId( $logItem['Calling-Station-Id'] ),
+						$this->sanitizeAccountId( $logItem['Called-Station-Id'] ),
 						(int) $logItem['Timestamp']
 					) );
+					$started[$id] = false;
 					break;
 				
 				default:
@@ -138,8 +148,11 @@ class RadiusLog {
 			}
 		}
 		
+		// Remove failed calls traces
+		$started = array_filter( $started );
+		
 		if ( count( $started ) > 0 ) {
-			throw new Exception( 'Unstarted call(s) #' . implode( ', #', array_keys( $started ) ) );
+			throw new Exception( 'Appel(s) non terminé(s) #' . implode( ', #', array_keys( $started ) ) );
 		}
 		
 		return $calls;
