@@ -54,7 +54,7 @@ abstract class LogPage extends Page {
 	 * @param CallList $log Log to build.
 	 * @param AccountContext $context Context (highlighted).
 	 */
-	protected function buildCallLog( CallList $log, AccountContext $context ) {
+	private function buildCallLog( CallList $log, AccountContext $context ) {
 		if ( $log->getLength() > 0 ) {
 			return $this->buildNonEmptyCallLog( $log, $context );
 		} else {
